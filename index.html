@@ -801,86 +801,200 @@
 
   <script>
 
-    /* =========================================
-       LOGIN DEMO — BELUM TERHUBUNG BACKEND
-    ========================================== */
-
-    const DEMO_USERNAME = 'admin';
-    const DEMO_PASSWORD = 'sentral';
-
-    const loginForm =
-      document.getElementById('loginForm');
-
-    const loginPage =
-      document.getElementById('loginPage');
-
-    const dashboard =
-      document.getElementById('dashboard');
-
-    const loginError =
-      document.getElementById('loginError');
+/* =========================================
+   SENTRAL MAKMUR MANAGEMENT
+   LOGIN BACKEND
+========================================= */
 
 
-    loginForm.addEventListener(
-      'submit',
-      function(event) {
+/* =========================================
+   ELEMENT
+========================================= */
 
-        event.preventDefault();
+const loginForm =
+  document.getElementById('loginForm');
 
-        const username =
-          document
-            .getElementById('username')
-            .value
-            .trim();
+const loginPage =
+  document.getElementById('loginPage');
 
-        const password =
-          document
-            .getElementById('password')
-            .value;
+const dashboard =
+  document.getElementById('dashboard');
 
-
-        if (
-          username === DEMO_USERNAME &&
-          password === DEMO_PASSWORD
-        ) {
-
-          loginPage.style.display =
-            'none';
-
-          dashboard.style.display =
-            'block';
-
-          loginError.style.display =
-            'none';
-
-        }
-
-        else {
-
-          loginError.style.display =
-            'block';
-
-        }
-
-      }
-    );
+const loginError =
+  document.getElementById('loginError');
 
 
-    function logout() {
+/* =========================================
+   LOGIN
+========================================= */
 
-      dashboard.style.display =
-        'none';
+loginForm.addEventListener(
+  'submit',
+  async function(event) {
 
-      loginPage.style.display =
-        'flex';
+    event.preventDefault();
 
+    const username =
+      document
+        .getElementById('username')
+        .value
+        .trim();
+
+    const password =
       document
         .getElementById('password')
-        .value = '';
+        .value;
+
+
+    loginError.style.display = 'none';
+
+
+    /* ================================
+       VALIDASI INPUT
+    ================================= */
+
+    if (!username || !password) {
+
+      loginError.textContent =
+        'Username dan password wajib diisi.';
+
+      loginError.style.display =
+        'block';
+
+      return;
 
     }
 
-  </script>
+
+    /* ================================
+       AMBIL API URL
+    ================================= */
+
+    const apiUrl =
+      CONFIG.API_URL;
+
+
+    if (!apiUrl) {
+
+      loginError.textContent =
+        'API belum dikonfigurasi.';
+
+      loginError.style.display =
+        'block';
+
+      return;
+
+    }
+
+
+    /* ================================
+       KIRIM LOGIN KE BACKEND
+    ================================= */
+
+    try {
+
+      const response =
+        await fetch(apiUrl, {
+
+          method: 'POST',
+
+          headers: {
+            'Content-Type':
+              'application/json'
+          },
+
+          body: JSON.stringify({
+
+            action: 'login',
+
+            username: username,
+
+            password: password
+
+          })
+
+        });
+
+
+      const result =
+        await response.json();
+
+
+      /* ================================
+         LOGIN BERHASIL
+      ================================= */
+
+      if (result.success) {
+
+        loginPage.style.display =
+          'none';
+
+        dashboard.style.display =
+          'block';
+
+        loginError.style.display =
+          'none';
+
+      }
+
+
+      /* ================================
+         LOGIN GAGAL
+      ================================= */
+
+      else {
+
+        loginError.textContent =
+          result.message ||
+          'Username atau password salah.';
+
+        loginError.style.display =
+          'block';
+
+      }
+
+    }
+
+
+    /* ================================
+       ERROR KONEKSI
+    ================================= */
+
+    catch (error) {
+
+      console.error(error);
+
+      loginError.textContent =
+        'Tidak dapat terhubung ke server.';
+
+      loginError.style.display =
+        'block';
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+function logout() {
+
+  dashboard.style.display =
+    'none';
+
+  loginPage.style.display =
+    'flex';
+
+  document
+    .getElementById('password')
+    .value = '';
+
+}
+
+</script>
 
 </body>
 </html>
