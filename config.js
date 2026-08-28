@@ -32,7 +32,7 @@ const CONFIG = {
   // Nanti diisi URL Web App Google Apps Script
   // yang menjadi backend management.
 
-  API_URL: "",
+  API_URL: "https://script.google.com/macros/s/AKfycbz3dKH-1fh3c_cnnZm6xcJFW6zGNnWTnZA403FFc3FDorL9xz_VHim7RL8DTMqxxG5urA/exec",
 
 
   /* =========================================
