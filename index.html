@@ -1,1715 +1,1508 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>
-    Sentral Makmur Sejahtera — Dashboard
-  </title>
-
+  <title>Dashboard Penjualan - Sentral Makmur Sejahtera</title>
 
   <style>
-
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
-
 
     body {
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      background: #f4f5f7;
-
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f6f8;
       color: #222;
-
-      min-height: 100vh;
-
     }
 
-
-    /* ================================
-       LOGIN
-    ================================= */
-
-    .login-page {
-
-      min-height: 100vh;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 20px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #111 0%,
-          #222 50%,
-          #8b0000 100%
-        );
-
+    .header {
+      background: #b40000;
+      color: white;
+      padding: 22px 30px;
     }
 
-
-    .login-box {
-
-      width: 100%;
-
-      max-width: 420px;
-
-      background: #fff;
-
-      border-radius: 18px;
-
-      padding: 35px 30px;
-
-      box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.3);
-
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
     }
 
-
-    .login-logo {
-
-      text-align: center;
-
-      margin-bottom: 25px;
-
+    .header p {
+      margin: 6px 0 0;
+      opacity: .9;
     }
 
-
-    .login-logo .logo-circle {
-
-      width: 70px;
-
-      height: 70px;
-
+    .container {
+      max-width: 1400px;
       margin: auto;
-
-      border-radius: 50%;
-
-      background: #b40000;
-
-      color: white;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      font-weight: bold;
-
-      font-size: 24px;
-
+      padding: 24px;
     }
-
-
-    .login-logo h1 {
-
-      margin-top: 15px;
-
-      font-size: 22px;
-
-      letter-spacing: .5px;
-
-    }
-
-
-    .login-logo p {
-
-      margin-top: 6px;
-
-      color: #777;
-
-      font-size: 13px;
-
-    }
-
-
-    .form-group {
-
-      margin-bottom: 18px;
-
-    }
-
-
-    .form-group label {
-
-      display: block;
-
-      margin-bottom: 7px;
-
-      font-size: 13px;
-
-      font-weight: bold;
-
-      color: #444;
-
-    }
-
-
-    .form-group input {
-
-      width: 100%;
-
-      padding: 13px 14px;
-
-      border: 1px solid #ddd;
-
-      border-radius: 10px;
-
-      outline: none;
-
-      font-size: 15px;
-
-    }
-
-
-    .form-group input:focus {
-
-      border-color: #b40000;
-
-      box-shadow:
-        0 0 0 3px
-        rgba(180,0,0,.08);
-
-    }
-
-
-    .login-button {
-
-      width: 100%;
-
-      padding: 14px;
-
-      border: none;
-
-      border-radius: 10px;
-
-      background: #b40000;
-
-      color: white;
-
-      font-weight: bold;
-
-      font-size: 15px;
-
-      cursor: pointer;
-
-    }
-
-
-    .login-button:hover {
-
-      background: #8f0000;
-
-    }
-
-
-    .login-error {
-
-      display: none;
-
-      margin-top: 14px;
-
-      padding: 10px;
-
-      border-radius: 8px;
-
-      background: #fff0f0;
-
-      color: #b40000;
-
-      text-align: center;
-
-      font-size: 13px;
-
-    }
-
-
-    /* ================================
-       DASHBOARD
-    ================================= */
-
-    .dashboard {
-
-      display: none;
-
-      min-height: 100vh;
-
-    }
-
-
-    .topbar {
-
-      height: 70px;
-
-      background: #b40000;
-
-      color: white;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      padding: 0 25px;
-
-      box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.15);
-
-    }
-
-
-    .brand {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 12px;
-
-    }
-
-
-    .brand-icon {
-
-      width: 42px;
-
-      height: 42px;
-
-      border-radius: 10px;
-
-      background:
-        rgba(255,255,255,.15);
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      font-weight: bold;
-
-    }
-
-
-    .brand-text strong {
-
-      display: block;
-
-      font-size: 16px;
-
-    }
-
-
-    .brand-text span {
-
-      font-size: 11px;
-
-      opacity: .85;
-
-    }
-
-
-    .logout-button {
-
-      border:
-        1px solid
-        rgba(255,255,255,.5);
-
-      background: transparent;
-
-      color: white;
-
-      padding: 9px 14px;
-
-      border-radius: 8px;
-
-      cursor: pointer;
-
-    }
-
-
-    .logout-button:hover {
-
-      background:
-        rgba(255,255,255,.12);
-
-    }
-
-
-    .content {
-
-      padding: 25px;
-
-      max-width: 1500px;
-
-      margin: auto;
-
-    }
-
-
-    .welcome {
-
-      margin-bottom: 25px;
-
-    }
-
-
-    .welcome h2 {
-
-      font-size: 24px;
-
-      margin-bottom: 6px;
-
-    }
-
-
-    .welcome p {
-
-      color: #777;
-
-      font-size: 14px;
-
-    }
-
-
-    /* ================================
-       FILTER
-    ================================= */
 
     .filter-box {
-
       background: white;
-
       padding: 18px;
-
       border-radius: 14px;
-
-      margin-bottom: 25px;
-
-      box-shadow:
-        0 2px 10px
-        rgba(0,0,0,.05);
-
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      margin-bottom: 20px;
     }
-
-
-    .filter-title {
-
-      font-weight: bold;
-
-      margin-bottom: 12px;
-
-      font-size: 14px;
-
-    }
-
 
     .filter-row {
-
       display: flex;
-
-      gap: 10px;
-
+      gap: 12px;
       flex-wrap: wrap;
-
+      align-items: end;
     }
 
-
-    .filter-row select,
-    .filter-row input {
-
-      padding: 11px 12px;
-
-      border: 1px solid #ddd;
-
-      border-radius: 9px;
-
-      font-size: 14px;
-
-      background: white;
-
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
-
-    /* ================================
-       KPI
-    ================================= */
-
-    .kpi-grid {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          4,
-          minmax(0, 1fr)
-        );
-
-      gap: 16px;
-
-      margin-bottom: 25px;
-
-    }
-
-
-    .kpi-card {
-
-      background: white;
-
-      border-radius: 14px;
-
-      padding: 20px;
-
-      box-shadow:
-        0 2px 10px
-        rgba(0,0,0,.05);
-
-    }
-
-
-    .kpi-label {
-
-      color: #777;
-
+    .field label {
       font-size: 13px;
-
-      margin-bottom: 10px;
-
-    }
-
-
-    .kpi-value {
-
-      font-size: 25px;
-
       font-weight: bold;
-
-      word-break: break-word;
-
+      color: #555;
     }
 
-
-    .kpi-note {
-
-      margin-top: 8px;
-
-      font-size: 12px;
-
-      color: #999;
-
+    input,
+    select,
+    button {
+      height: 42px;
+      border-radius: 9px;
+      border: 1px solid #ddd;
+      padding: 0 13px;
+      font-size: 14px;
     }
 
-
-    /* ================================
-       MODULES
-    ================================= */
-
-    .section-title {
-
-      font-size: 18px;
-
-      font-weight: bold;
-
-      margin-bottom: 15px;
-
-    }
-
-
-    .module-grid {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          4,
-          minmax(0, 1fr)
-        );
-
-      gap: 16px;
-
-    }
-
-
-    .module-card {
-
+    input {
       background: white;
+    }
 
-      border-radius: 14px;
-
-      padding: 20px;
-
-      min-height: 150px;
-
-      box-shadow:
-        0 2px 10px
-        rgba(0,0,0,.05);
-
+    button {
       cursor: pointer;
-
-      transition: .2s;
-
+      border: none;
+      font-weight: bold;
     }
 
-
-    .module-card:hover {
-
-      transform:
-        translateY(-3px);
-
-      box-shadow:
-        0 7px 20px
-        rgba(0,0,0,.1);
-
+    .btn-primary {
+      background: #b40000;
+      color: white;
     }
 
-
-    .module-icon {
-
-      font-size: 28px;
-
-      margin-bottom: 12px;
-
+    .btn-secondary {
+      background: #eee;
+      color: #333;
     }
 
-
-    .module-card h3 {
-
-      font-size: 16px;
-
-      margin-bottom: 7px;
-
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
     }
 
+    .status {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #666;
+    }
 
-    .module-card p {
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
 
-      font-size: 12px;
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
 
-      line-height: 1.5;
-
+    .card-title {
+      font-size: 13px;
       color: #777;
-
+      margin-bottom: 10px;
     }
 
-
-    /* ================================
-       RESPONSIVE TABLET
-    ================================= */
-
-    @media (max-width: 1000px) {
-
-      .kpi-grid {
-
-        grid-template-columns:
-          repeat(
-            2,
-            minmax(0, 1fr)
-          );
-
-      }
-
-
-      .module-grid {
-
-        grid-template-columns:
-          repeat(
-            2,
-            minmax(0, 1fr)
-          );
-
-      }
-
+    .card-value {
+      font-size: 25px;
+      font-weight: bold;
     }
 
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
 
-    /* ================================
-       RESPONSIVE MOBILE
-    ================================= */
+    .panel {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      min-width: 0;
+    }
 
-    @media (max-width: 600px) {
+    .panel h2 {
+      margin: 0 0 16px;
+      font-size: 18px;
+    }
 
-      .topbar {
+    .table-wrapper {
+      overflow-x: auto;
+    }
 
-        height: auto;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
 
-        min-height: 65px;
+    th,
+    td {
+      padding: 11px 10px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+      font-size: 13px;
+    }
 
-        padding: 12px 15px;
+    th {
+      background: #fafafa;
+      font-weight: bold;
+    }
 
+    td.number,
+    th.number {
+      text-align: right;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: #888;
+    }
+
+    .loading {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,.75);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading-box {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 14px;
+      box-shadow: 0 5px 25px rgba(0,0,0,.15);
+      text-align: center;
+    }
+
+    .spinner {
+      width: 35px;
+      height: 35px;
+      border: 4px solid #ddd;
+      border-top-color: #b40000;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .error {
+      color: #b40000;
+      font-weight: bold;
+    }
+
+    @media (max-width: 1100px) {
+      .cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 800px) {
+      .header {
+        padding: 18px;
       }
 
-
-      .brand-text strong {
-
-        font-size: 14px;
-
+      .header h1 {
+        font-size: 22px;
       }
 
+      .container {
+        padding: 14px;
+      }
 
-      .content {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
 
+      .card {
         padding: 15px;
-
       }
 
-
-      .welcome h2 {
-
+      .card-value {
         font-size: 20px;
-
       }
 
-
-      .kpi-grid {
-
+      .grid {
         grid-template-columns: 1fr;
-
       }
-
-
-      .module-grid {
-
-        grid-template-columns: 1fr;
-
-      }
-
 
       .filter-row {
-
-        flex-direction: column;
-
+        display: grid;
+        grid-template-columns: 1fr 1fr;
       }
 
-
-      .filter-row select,
-      .filter-row input {
-
+      .field {
         width: 100%;
-
       }
 
-
-      .kpi-value {
-
-        font-size: 23px;
-
+      .field input,
+      .field select,
+      .field button {
+        width: 100%;
       }
 
+      .actions {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
     }
 
+    @media (max-width: 480px) {
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .card-title {
+        font-size: 11px;
+      }
+
+      .card-value {
+        font-size: 17px;
+      }
+
+      .filter-row {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        grid-column: auto;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   </style>
-
-
-  <!-- =========================================
-       CONFIG & MODULE
-  ========================================== -->
-
-  <script src="config.js"></script>
-
-  <script src="penjualan.js"></script>
-
 </head>
-
 
 <body>
 
+  <div class="header">
+    <h1>Dashboard Penjualan</h1>
+    <p>SENTRAL MAKMUR SEJAHTERA</p>
+  </div>
 
-  <!-- =========================================
-       LOGIN PAGE
-  ========================================== -->
+  <div class="container">
 
-  <div
-    id="loginPage"
-    class="login-page"
-  >
+    <!-- FILTER -->
+    <div class="filter-box">
 
-    <div class="login-box">
+      <div class="filter-row">
 
-
-      <div class="login-logo">
-
-        <div class="logo-circle">
-          SM
+        <div class="field">
+          <label>Dari Tanggal</label>
+          <input type="date" id="tanggalMulai">
         </div>
 
-        <h1>
-          SENTRAL MAKMUR SEJAHTERA
-        </h1>
+        <div class="field">
+          <label>Sampai Tanggal</label>
+          <input type="date" id="tanggalAkhir">
+        </div>
 
-        <p>
-          Management Dashboard
-        </p>
+        <div class="field">
+          <label>Preset</label>
+          <select id="preset">
+            <option value="">Pilih periode</option>
+            <option value="today">Hari Ini</option>
+            <option value="yesterday">Kemarin</option>
+            <option value="month">Bulan Ini</option>
+            <option value="lastmonth">Bulan Lalu</option>
+            <option value="year">Tahun Ini</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button
+            class="btn-primary"
+            id="btnLoad"
+            onclick="loadDashboard()">
+            Tampilkan
+          </button>
+
+          <button
+            class="btn-secondary"
+            onclick="resetFilter()">
+            Reset
+          </button>
+        </div>
+
+      </div>
+
+      <div class="status" id="status">
+        Siap.
+      </div>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-title">OMZET</div>
+        <div class="card-value" id="omzet">Rp0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">TRANSAKSI</div>
+        <div class="card-value" id="transaksi">0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">QTY TERJUAL</div>
+        <div class="card-value" id="qty">0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">PRODUK</div>
+        <div class="card-value" id="jumlahProduk">0</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">BRAND</div>
+        <div class="card-value" id="jumlahBrand">0</div>
+      </div>
+
+    </div>
+
+
+    <!-- PRODUK + BRAND -->
+    <div class="grid">
+
+      <div class="panel">
+
+        <h2>🏆 Produk Terlaris</h2>
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Produk</th>
+                <th class="number">Qty</th>
+                <th class="number">Omzet</th>
+              </tr>
+            </thead>
+
+            <tbody id="produkBody"></tbody>
+
+          </table>
+
+        </div>
 
       </div>
 
 
-      <form id="loginForm">
+      <div class="panel">
 
+        <h2>🏷️ Penjualan per Brand</h2>
 
-        <div class="form-group">
+        <div class="table-wrapper">
 
-          <label for="username">
-            Username
-          </label>
+          <table>
 
-          <input
-            type="text"
-            id="username"
-            autocomplete="username"
-            required
-          >
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Brand ID</th>
+                <th class="number">Qty</th>
+                <th class="number">Omzet</th>
+              </tr>
+            </thead>
 
-        </div>
+            <tbody id="brandBody"></tbody>
 
-
-        <div class="form-group">
-
-          <label for="password">
-            Password
-          </label>
-
-          <input
-            type="password"
-            id="password"
-            autocomplete="current-password"
-            required
-          >
+          </table>
 
         </div>
 
+      </div>
 
-        <button
-          type="submit"
-          class="login-button"
-        >
-          MASUK KE DASHBOARD
-        </button>
+    </div>
 
 
-        <div
-          id="loginError"
-          class="login-error"
-        >
-          Username atau password salah.
-        </div>
+    <!-- HARIAN -->
+    <div class="panel" style="margin-bottom:20px;">
+
+      <h2>📈 Penjualan Harian</h2>
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th class="number">Transaksi</th>
+              <th class="number">Qty</th>
+              <th class="number">Omzet</th>
+            </tr>
+          </thead>
+
+          <tbody id="harianBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
 
 
-      </form>
+    <!-- TRANSAKSI -->
+    <div class="panel">
+
+      <h2>🧾 Detail Transaksi</h2>
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>No Invoice</th>
+              <th>Tanggal</th>
+              <th>Kasir</th>
+              <th class="number">Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody id="transaksiBody"></tbody>
+
+        </table>
+
+      </div>
 
     </div>
 
   </div>
 
 
-  <!-- =========================================
-       DASHBOARD
-  ========================================== -->
+  <!-- LOADING -->
+  <div class="loading" id="loading">
 
-  <div
-    id="dashboard"
-    class="dashboard"
-  >
+    <div class="loading-box">
 
+      <div class="spinner"></div>
 
-    <header class="topbar">
-
-
-      <div class="brand">
-
-        <div class="brand-icon">
-          SM
-        </div>
-
-
-        <div class="brand-text">
-
-          <strong>
-            SENTRAL MAKMUR SEJAHTERA
-          </strong>
-
-          <span>
-            Management Dashboard
-          </span>
-
-        </div>
-
+      <div>
+        Mengambil data penjualan...
       </div>
 
-
-      <button
-        class="logout-button"
-        onclick="logout()"
-      >
-        Keluar
-      </button>
-
-
-    </header>
-
-
-    <main class="content">
-
-
-      <div class="welcome">
-
-        <h2>
-          Dashboard Manajemen
-        </h2>
-
-        <p>
-          Pusat informasi dan analisis internal
-          Sentral Makmur Sejahtera.
-        </p>
-
-      </div>
-
-
-      <!-- =====================================
-           FILTER
-      ====================================== -->
-
-      <div class="filter-box">
-
-        <div class="filter-title">
-          Periode Data
-        </div>
-
-
-        <div class="filter-row">
-
-
-          <select id="periodType">
-
-            <option value="harian">
-              Harian
-            </option>
-
-            <option
-              value="bulanan"
-              selected
-            >
-              Bulanan
-            </option>
-
-            <option value="tahunan">
-              Tahunan
-            </option>
-
-          </select>
-
-
-          <input
-            type="date"
-            id="startDate"
-          >
-
-
-          <input
-            type="date"
-            id="endDate"
-          >
-
-
-        </div>
-
-      </div>
-
-
-      <!-- =====================================
-           KPI
-      ====================================== -->
-
-      <div class="kpi-grid">
-
-
-        <!-- OMZET -->
-
-        <div class="kpi-card">
-
-          <div class="kpi-label">
-            Omzet
-          </div>
-
-
-          <div
-            class="kpi-value"
-            id="kpiOmzet"
-          >
-            Rp 0
-          </div>
-
-
-          <div class="kpi-note">
-            Data akan terhubung ke Accurate
-          </div>
-
-        </div>
-
-
-        <!-- QUANTITY -->
-
-        <div class="kpi-card">
-
-          <div class="kpi-label">
-            Produk Terjual
-          </div>
-
-
-          <div
-            class="kpi-value"
-            id="kpiQuantity"
-          >
-            0
-          </div>
-
-
-          <div class="kpi-note">
-            Total quantity
-          </div>
-
-        </div>
-
-
-        <!-- PRODUK TERLARIS -->
-
-        <div class="kpi-card">
-
-          <div class="kpi-label">
-            Produk Terlaris
-          </div>
-
-
-          <div
-            class="kpi-value"
-            id="kpiProdukTerlaris"
-          >
-            -
-          </div>
-
-
-          <div class="kpi-note">
-            Berdasarkan quantity
-          </div>
-
-        </div>
-
-
-        <!-- BRAND TERLARIS -->
-
-        <div class="kpi-card">
-
-          <div class="kpi-label">
-            Brand Terlaris
-          </div>
-
-
-          <div
-            class="kpi-value"
-            id="kpiBrandTerlaris"
-          >
-            -
-          </div>
-
-
-          <div class="kpi-note">
-            Berdasarkan penjualan
-          </div>
-
-        </div>
-
-
-      </div>
-
-
-      <!-- =====================================
-           MODULES
-      ====================================== -->
-
-      <div class="section-title">
-        Modul Manajemen
-      </div>
-
-
-      <div class="module-grid">
-
-
-        <div class="module-card">
-
-          <div class="module-icon">
-            📊
-          </div>
-
-          <h3>
-            Penjualan
-          </h3>
-
-          <p>
-            Omzet harian, bulanan, tahunan,
-            tren penjualan, produk dan brand
-            terlaris.
-          </p>
-
-        </div>
-
-
-        <div class="module-card">
-
-          <div class="module-icon">
-            📦
-          </div>
-
-          <h3>
-            Monitoring Stok
-          </h3>
-
-          <p>
-            Melihat produk cepat habis,
-            lambat bergerak dan kebutuhan
-            stok.
-          </p>
-
-        </div>
-
-
-        <div class="module-card">
-
-          <div class="module-icon">
-            💰
-          </div>
-
-          <h3>
-            Analisis Keuntungan
-          </h3>
-
-          <p>
-            Melihat omzet, harga beli,
-            margin dan keuntungan produk.
-          </p>
-
-        </div>
-
-
-        <div class="module-card">
-
-          <div class="module-icon">
-            👥
-          </div>
-
-          <h3>
-            Analisis Pelanggan
-          </h3>
-
-          <p>
-            Pelanggan terbesar, pola pembelian
-            dan aktivitas pelanggan.
-          </p>
-
-        </div>
-
-
-        <div class="module-card">
-
-          <div class="module-icon">
-            🚚
-          </div>
-
-          <h3>
-            Piutang
-          </h3>
-
-          <p>
-            Monitoring piutang pelanggan
-            dan tanggal jatuh tempo.
-          </p>
-
-        </div>
-
-
-        <div class="module-card">
-
-          <div class="module-icon">
-            🏆
-          </div>
-
-          <h3>
-            Evaluasi Operasional
-          </h3>
-
-          <p>
-            Melihat proses kerja yang dapat
-            dibuat lebih efisien.
-          </p>
-
-        </div>
-
-
-        <div class="module-card">
-
-          <div class="module-icon">
-            💡
-          </div>
-
-          <h3>
-            Sistem Internal
-          </h3>
-
-          <p>
-            Tempat untuk berbagai sistem kecil
-            yang membantu pekerjaan sehari-hari.
-          </p>
-
-        </div>
-
-
-        <div class="module-card">
-
-          <div class="module-icon">
-            📈
-          </div>
-
-          <h3>
-            Strategi Penjualan
-          </h3>
-
-          <p>
-            Mengubah data penjualan menjadi
-            peluang dan strategi bisnis.
-          </p>
-
-        </div>
-
-
-      </div>
-
-
-    </main>
-
+    </div>
 
   </div>
 
 
-  <!-- =========================================
-       LOGIN + SESSION + KPI
-  ========================================== -->
+<script>
 
-  <script>
+  /* =====================================================
+     URL WEB APP DASHBOARD PENJUALAN
+     =====================================================
+
+     PENTING:
+     ISI DENGAN URL DEPLOYMENT BARU DASHBOARD.
+
+     JANGAN ISI URL APLIKASI CEK STOK.
+  ===================================================== */
+
+  const API_URL =
+    "https://script.google.com/macros/s/AKfycbz3dKH-1fh3c_cnnZm6xcJFW6zGNnWTnZA403FFc3FDorL9xz_VHim7RL8DTMqxxG5urA/exec";
 
 
-    /* =========================================
-       ELEMENT
-    ========================================== */
+  /* =====================================================
+     FORMAT RUPIAH
+  ===================================================== */
 
-    const loginForm =
-      document.getElementById(
-        'loginForm'
+  function formatRupiah(value) {
+
+    const number =
+      Number(value || 0);
+
+    return new Intl.NumberFormat(
+      'id-ID',
+      {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0
+      }
+    ).format(number);
+
+  }
+
+
+  /* =====================================================
+     FORMAT ANGKA
+  ===================================================== */
+
+  function formatNumber(value) {
+
+    return new Intl.NumberFormat(
+      'id-ID'
+    ).format(
+      Number(value || 0)
+    );
+
+  }
+
+
+  /* =====================================================
+     FORMAT TANGGAL
+  ===================================================== */
+
+  function formatTanggal(value) {
+
+    if (!value) {
+      return '-';
+    }
+
+    const bagian =
+      String(value).split('-');
+
+    if (bagian.length !== 3) {
+      return value;
+    }
+
+    return (
+      bagian[2] +
+      '/' +
+      bagian[1] +
+      '/' +
+      bagian[0]
+    );
+
+  }
+
+
+  /* =====================================================
+     TANGGAL LOKAL
+  ===================================================== */
+
+  function tanggalLokal(date) {
+
+    const tahun =
+      date.getFullYear();
+
+    const bulan =
+      String(
+        date.getMonth() + 1
+      ).padStart(2, '0');
+
+    const hari =
+      String(
+        date.getDate()
+      ).padStart(2, '0');
+
+    return (
+      tahun +
+      '-' +
+      bulan +
+      '-' +
+      hari
+    );
+
+  }
+
+
+  /* =====================================================
+     SET HARI INI
+  ===================================================== */
+
+  function setHariIni() {
+
+    const hariIni =
+      tanggalLokal(
+        new Date()
       );
 
+    document
+      .getElementById(
+        'tanggalMulai'
+      )
+      .value = hariIni;
 
-    const loginPage =
-      document.getElementById(
-        'loginPage'
-      );
+    document
+      .getElementById(
+        'tanggalAkhir'
+      )
+      .value = hariIni;
 
-
-    const dashboard =
-      document.getElementById(
-        'dashboard'
-      );
-
-
-    const loginError =
-      document.getElementById(
-        'loginError'
-      );
+  }
 
 
-    /* =========================================
-       CONFIG
-    ========================================== */
+  /* =====================================================
+     PRESET
+  ===================================================== */
 
-    const apiUrl =
-      CONFIG.API_URL;
+  document
+    .getElementById('preset')
+    .addEventListener(
+      'change',
+      function() {
 
+        const value =
+          this.value;
 
-    const SESSION_KEY =
-      CONFIG.LOGIN.SESSION_KEY;
+        const sekarang =
+          new Date();
 
-
-    /* =========================================
-       LOGIN
-    ========================================== */
-
-    loginForm.addEventListener(
-      'submit',
-      async function(event) {
-
-        event.preventDefault();
-
-
-        const username =
-          document
-            .getElementById(
-              'username'
-            )
-            .value
-            .trim();
-
-
-        const password =
-          document
-            .getElementById(
-              'password'
-            )
-            .value;
-
-
-        loginError.style.display =
-          'none';
-
+        let mulai;
+        let akhir;
 
         if (
-          !username ||
-          !password
+          value === 'today'
         ) {
 
-          loginError.textContent =
-            'Username dan password wajib diisi.';
+          mulai =
+            new Date(sekarang);
 
-          loginError.style.display =
-            'block';
-
-          return;
+          akhir =
+            new Date(sekarang);
 
         }
 
+        else if (
+          value === 'yesterday'
+        ) {
 
-        if (!apiUrl) {
+          mulai =
+            new Date(sekarang);
 
-          loginError.textContent =
-            'API belum dikonfigurasi.';
-
-          loginError.style.display =
-            'block';
-
-          return;
-
-        }
-
-
-        const formData =
-          new URLSearchParams();
-
-
-        formData.append(
-          'action',
-          'login'
-        );
-
-
-        formData.append(
-          'username',
-          username
-        );
-
-
-        formData.append(
-          'password',
-          password
-        );
-
-
-        try {
-
-          const response =
-            await fetch(
-              apiUrl,
-              {
-                method: 'POST',
-                body: formData
-              }
-            );
-
-
-          const result =
-            await response.json();
-
-
-          if (result.success) {
-
-            localStorage.setItem(
-              SESSION_KEY,
-              result.sessionToken
-            );
-
-
-            loginPage.style.display =
-              'none';
-
-
-            dashboard.style.display =
-              'block';
-
-
-            loginError.style.display =
-              'none';
-
-
-            updateKPIDashboard();
-
-          }
-
-          else {
-
-            loginError.textContent =
-              result.message ||
-              'Username atau password salah.';
-
-            loginError.style.display =
-              'block';
-
-          }
-
-        }
-
-
-        catch (error) {
-
-          console.error(
-            'LOGIN ERROR:',
-            error
+          mulai.setDate(
+            mulai.getDate() - 1
           );
 
-
-          loginError.textContent =
-            'Tidak dapat terhubung ke server.';
-
-
-          loginError.style.display =
-            'block';
+          akhir =
+            new Date(mulai);
 
         }
+
+        else if (
+          value === 'month'
+        ) {
+
+          mulai =
+            new Date(
+              sekarang.getFullYear(),
+              sekarang.getMonth(),
+              1
+            );
+
+          akhir =
+            new Date(sekarang);
+
+        }
+
+        else if (
+          value === 'lastmonth'
+        ) {
+
+          mulai =
+            new Date(
+              sekarang.getFullYear(),
+              sekarang.getMonth() - 1,
+              1
+            );
+
+          akhir =
+            new Date(
+              sekarang.getFullYear(),
+              sekarang.getMonth(),
+              0
+            );
+
+        }
+
+        else if (
+          value === 'year'
+        ) {
+
+          mulai =
+            new Date(
+              sekarang.getFullYear(),
+              0,
+              1
+            );
+
+          akhir =
+            new Date(sekarang);
+
+        }
+
+        else {
+
+          return;
+
+        }
+
+        document
+          .getElementById(
+            'tanggalMulai'
+          )
+          .value =
+          tanggalLokal(mulai);
+
+        document
+          .getElementById(
+            'tanggalAkhir'
+          )
+          .value =
+          tanggalLokal(akhir);
 
       }
     );
 
 
-    /* =========================================
-       CHECK SESSION
-    ========================================== */
+  /* =====================================================
+     LOAD DASHBOARD
+  ===================================================== */
 
-    async function checkSession() {
+  async function loadDashboard() {
 
-      const sessionToken =
-        localStorage.getItem(
-          SESSION_KEY
-        );
-
-
-      if (!sessionToken) {
-
-        return;
-
-      }
-
-
-      const formData =
-        new URLSearchParams();
-
-
-      formData.append(
-        'action',
-        'checkSession'
-      );
-
-
-      formData.append(
-        'sessionToken',
-        sessionToken
-      );
-
-
-      try {
-
-        const response =
-          await fetch(
-            apiUrl,
-            {
-              method: 'POST',
-              body: formData,
-              redirect: 'follow'
-            }
-          );
-
-
-        if (!response.ok) {
-
-          return;
-
-        }
-
-
-        const result =
-          await response.json();
-
-
-        if (result.success) {
-
-          loginPage.style.display =
-            'none';
-
-
-          dashboard.style.display =
-            'block';
-
-
-          updateKPIDashboard();
-
-          return;
-
-        }
-
-
-        if (
-          result.message ===
-          'Session sudah tidak berlaku.'
-        ) {
-
-          localStorage.removeItem(
-            SESSION_KEY
-          );
-
-        }
-
-      }
-
-
-      catch (error) {
-
-        console.error(
-          'SESSION CHECK ERROR:',
-          error
-        );
-
-      }
-
-    }
-
-
-    /* =========================================
-       LOGOUT
-    ========================================== */
-
-    async function logout() {
-
-      const sessionToken =
-        localStorage.getItem(
-          SESSION_KEY
-        );
-
-
-      if (sessionToken) {
-
-        const formData =
-          new URLSearchParams();
-
-
-        formData.append(
-          'action',
-          'logout'
-        );
-
-
-        formData.append(
-          'sessionToken',
-          sessionToken
-        );
-
-
-        try {
-
-          await fetch(
-            apiUrl,
-            {
-              method: 'POST',
-              body: formData
-            }
-          );
-
-        }
-
-
-        catch (error) {
-
-          console.error(
-            'LOGOUT ERROR:',
-            error
-          );
-
-        }
-
-      }
-
-
-      localStorage.removeItem(
-        SESSION_KEY
-      );
-
-
-      dashboard.style.display =
-        'none';
-
-
-      loginPage.style.display =
-        'flex';
-
-
+    const mulai =
       document
         .getElementById(
-          'password'
+          'tanggalMulai'
         )
-        .value = '';
+        .value;
+
+    const akhir =
+      document
+        .getElementById(
+          'tanggalAkhir'
+        )
+        .value;
+
+
+    if (!mulai || !akhir) {
+
+      alert(
+        'Silakan pilih tanggal mulai dan tanggal akhir.'
+      );
+
+      return;
 
     }
 
 
-    /* =========================================
-       UPDATE KPI
-    ========================================== */
+    if (mulai > akhir) {
 
-    function updateKPIDashboard() {
+      alert(
+        'Tanggal mulai tidak boleh lebih besar dari tanggal akhir.'
+      );
 
-      if (
-        typeof updateKPIDashboardFromSales ===
-        'function'
-      ) {
+      return;
 
-        updateKPIDashboardFromSales();
-
-        return;
-
-      }
+    }
 
 
-      if (
-        typeof PENJUALAN ===
-        'undefined'
-      ) {
+    if (
+      API_URL.includes(
+        'TEMPELKAN_URL'
+      )
+    ) {
 
-        return;
+      alert(
+        'URL Web App Dashboard Penjualan belum dimasukkan.'
+      );
+
+      return;
+
+    }
+
+
+    showLoading(true);
+
+    setStatus(
+      'Mengambil data penjualan...'
+    );
+
+
+    const waktuMulai =
+      Date.now();
+
+
+    try {
+
+      const url =
+        API_URL +
+        '?aksi=penjualan' +
+        '&mulai=' +
+        encodeURIComponent(
+          mulai
+        ) +
+        '&akhir=' +
+        encodeURIComponent(
+          akhir
+        );
+
+
+      const response =
+        await fetch(
+          url,
+          {
+            method: 'GET',
+            cache: 'no-store'
+          }
+        );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          'HTTP ' +
+          response.status
+        );
 
       }
 
 
       const data =
-        PENJUALAN.ringkasan;
+        await response.json();
 
 
-      const omzetElement =
-        document.getElementById(
-          'kpiOmzet'
+      if (
+        !data ||
+        data.success !== true
+      ) {
+
+        throw new Error(
+          data &&
+          data.message
+            ? data.message
+            : 'Data tidak valid.'
         );
-
-
-      const quantityElement =
-        document.getElementById(
-          'kpiQuantity'
-        );
-
-
-      const produkElement =
-        document.getElementById(
-          'kpiProdukTerlaris'
-        );
-
-
-      const brandElement =
-        document.getElementById(
-          'kpiBrandTerlaris'
-        );
-
-
-      if (omzetElement) {
-
-        omzetElement.textContent =
-          formatRupiah(
-            data.omzet
-          );
 
       }
 
 
-      if (quantityElement) {
-
-        quantityElement.textContent =
-          Number(
-            data.quantity || 0
-          ).toLocaleString(
-            'id-ID'
-          );
-
-      }
+      renderDashboard(
+        data
+      );
 
 
-      if (produkElement) {
-
-        produkElement.textContent =
-          data.produkTerlaris ||
-          '-';
-
-      }
+      const waktu =
+        Date.now() -
+        waktuMulai;
 
 
-      if (brandElement) {
+      setStatus(
+        'Data berhasil dimuat • ' +
+        formatTanggal(mulai) +
+        ' s/d ' +
+        formatTanggal(akhir) +
+        ' • ' +
+        waktu +
+        ' ms'
+      );
 
-        brandElement.textContent =
-          data.brandTerlaris ||
-          '-';
+    }
 
-      }
+    catch (error) {
+
+      console.error(
+        error
+      );
+
+      setStatus(
+        'Gagal mengambil data: ' +
+        error.message,
+        true
+      );
+
+    }
+
+    finally {
+
+      showLoading(false);
+
+    }
+
+  }
+
+
+  /* =====================================================
+     RENDER DASHBOARD
+  ===================================================== */
+
+  function renderDashboard(
+    data
+  ) {
+
+    const ringkasan =
+      data.ringkasan ||
+      {};
+
+
+    document
+      .getElementById(
+        'omzet'
+      )
+      .textContent =
+      formatRupiah(
+        ringkasan.omzet
+      );
+
+
+    document
+      .getElementById(
+        'transaksi'
+      )
+      .textContent =
+      formatNumber(
+        ringkasan.transaksi
+      );
+
+
+    document
+      .getElementById(
+        'qty'
+      )
+      .textContent =
+      formatNumber(
+        ringkasan.qty
+      );
+
+
+    document
+      .getElementById(
+        'jumlahProduk'
+      )
+      .textContent =
+      formatNumber(
+        (data.produk || []).length
+      );
+
+
+    document
+      .getElementById(
+        'jumlahBrand'
+      )
+      .textContent =
+      formatNumber(
+        (data.brand || []).length
+      );
+
+
+    renderProduk(
+      data.produk || []
+    );
+
+    renderBrand(
+      data.brand || []
+    );
+
+    renderHarian(
+      data.harian || []
+    );
+
+    renderTransaksi(
+      data.transaksi || []
+    );
+
+  }
+
+
+  /* =====================================================
+     PRODUK
+  ===================================================== */
+
+  function renderProduk(
+    data
+  ) {
+
+    const body =
+      document
+        .getElementById(
+          'produkBody'
+        );
+
+
+    body.innerHTML = '';
+
+
+    if (
+      data.length === 0
+    ) {
+
+      body.innerHTML =
+        '<tr><td colspan="4" class="empty">Tidak ada data.</td></tr>';
+
+      return;
 
     }
 
 
-    /* =========================================
-       INITIAL
-    ========================================== */
+    data
+      .slice(0, 20)
+      .forEach(
+        function(item, index) {
 
-    document.addEventListener(
-      'DOMContentLoaded',
-      function() {
+          const row =
+            document.createElement(
+              'tr'
+            );
 
-        updateKPIDashboard();
 
-        checkSession();
+          row.innerHTML = `
+
+            <td>
+              ${index + 1}
+            </td>
+
+            <td>
+              <strong>
+                ${escapeHtml(
+                  item.nama || '-'
+                )}
+              </strong>
+
+              <br>
+
+              <small>
+                ${escapeHtml(
+                  item.kode || ''
+                )}
+              </small>
+            </td>
+
+            <td class="number">
+              ${formatNumber(
+                item.qty
+              )}
+            </td>
+
+            <td class="number">
+              ${formatRupiah(
+                item.omzet
+              )}
+            </td>
+
+          `;
+
+
+          body.appendChild(
+            row
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =====================================================
+     BRAND
+  ===================================================== */
+
+  function renderBrand(
+    data
+  ) {
+
+    const body =
+      document
+        .getElementById(
+          'brandBody'
+        );
+
+
+    body.innerHTML = '';
+
+
+    if (
+      data.length === 0
+    ) {
+
+      body.innerHTML =
+        '<tr><td colspan="4" class="empty">Tidak ada data brand.</td></tr>';
+
+      return;
+
+    }
+
+
+    data
+      .slice(0, 20)
+      .forEach(
+        function(item, index) {
+
+          const row =
+            document.createElement(
+              'tr'
+            );
+
+
+          row.innerHTML = `
+
+            <td>
+              ${index + 1}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                item.brandId || '-'
+              )}
+            </td>
+
+            <td class="number">
+              ${formatNumber(
+                item.qty
+              )}
+            </td>
+
+            <td class="number">
+              ${formatRupiah(
+                item.omzet
+              )}
+            </td>
+
+          `;
+
+
+          body.appendChild(
+            row
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =====================================================
+     HARIAN
+  ===================================================== */
+
+  function renderHarian(
+    data
+  ) {
+
+    const body =
+      document
+        .getElementById(
+          'harianBody'
+        );
+
+
+    body.innerHTML = '';
+
+
+    if (
+      data.length === 0
+    ) {
+
+      body.innerHTML =
+        '<tr><td colspan="4" class="empty">Tidak ada data.</td></tr>';
+
+      return;
+
+    }
+
+
+    data.forEach(
+      function(item) {
+
+        const row =
+          document.createElement(
+            'tr'
+          );
+
+
+        row.innerHTML = `
+
+          <td>
+            ${formatTanggal(
+              item.tanggal
+            )}
+          </td>
+
+          <td class="number">
+            ${formatNumber(
+              item.transaksi
+            )}
+          </td>
+
+          <td class="number">
+            ${formatNumber(
+              item.qty
+            )}
+          </td>
+
+          <td class="number">
+            ${formatRupiah(
+              item.omzet
+            )}
+          </td>
+
+        `;
+
+
+        body.appendChild(
+          row
+        );
 
       }
     );
 
+  }
 
-  </script>
 
+  /* =====================================================
+     TRANSAKSI
+  ===================================================== */
+
+  function renderTransaksi(
+    data
+  ) {
+
+    const body =
+      document
+        .getElementById(
+          'transaksiBody'
+        );
+
+
+    body.innerHTML = '';
+
+
+    if (
+      data.length === 0
+    ) {
+
+      body.innerHTML =
+        '<tr><td colspan="5" class="empty">Tidak ada transaksi.</td></tr>';
+
+      return;
+
+    }
+
+
+    data.forEach(
+      function(item) {
+
+        const row =
+          document.createElement(
+            'tr'
+          );
+
+
+        row.innerHTML = `
+
+          <td>
+            <strong>
+              ${escapeHtml(
+                item.nomor || '-'
+              )}
+            </strong>
+          </td>
+
+          <td>
+            ${formatTanggal(
+              item.tanggal
+            )}
+          </td>
+
+          <td>
+            ${escapeHtml(
+              item.kasir || '-'
+            )}
+          </td>
+
+          <td class="number">
+            ${formatRupiah(
+              item.total
+            )}
+          </td>
+
+          <td>
+            ${escapeHtml(
+              item.status || '-'
+            )}
+          </td>
+
+        `;
+
+
+        body.appendChild(
+          row
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     ESCAPE HTML
+  ===================================================== */
+
+  function escapeHtml(
+    value
+  ) {
+
+    return String(
+      value ?? ''
+    )
+      .replace(
+        /&/g,
+        '&amp;'
+      )
+      .replace(
+        /</g,
+        '&lt;'
+      )
+      .replace(
+        />/g,
+        '&gt;'
+      )
+      .replace(
+        /"/g,
+        '&quot;'
+      )
+      .replace(
+        /'/g,
+        '&#039;'
+      );
+
+  }
+
+
+  /* =====================================================
+     LOADING
+  ===================================================== */
+
+  function showLoading(
+    show
+  ) {
+
+    document
+      .getElementById(
+        'loading'
+      )
+      .style.display =
+      show
+        ? 'flex'
+        : 'none';
+
+    document
+      .getElementById(
+        'btnLoad'
+      )
+      .disabled =
+      show;
+
+  }
+
+
+  /* =====================================================
+     STATUS
+  ===================================================== */
+
+  function setStatus(
+    text,
+    error
+  ) {
+
+    const el =
+      document
+        .getElementById(
+          'status'
+        );
+
+
+    el.textContent =
+      text;
+
+
+    el.className =
+      error
+        ? 'status error'
+        : 'status';
+
+  }
+
+
+  /* =====================================================
+     RESET
+  ===================================================== */
+
+  function resetFilter() {
+
+    setHariIni();
+
+    document
+      .getElementById(
+        'preset'
+      )
+      .value = '';
+
+    setStatus(
+      'Filter direset.'
+    );
+
+  }
+
+
+  /* =====================================================
+     START
+  ===================================================== */
+
+  setHariIni();
+
+
+  /*
+   * Otomatis tampilkan data hari ini
+   * setelah halaman dibuka.
+   */
+
+  window.addEventListener(
+    'load',
+    function() {
+
+      loadDashboard();
+
+    }
+  );
+
+</script>
 
 </body>
 </html>
