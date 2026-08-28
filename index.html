@@ -20,9 +20,13 @@ body{
   min-height:100vh;
 }
 
-/* =====================================================
+button,input{
+  font-family:inherit;
+}
+
+/* =========================================================
    LOGIN
-===================================================== */
+========================================================= */
 
 #loginPage{
   min-height:100vh;
@@ -35,7 +39,7 @@ body{
 
 .login-box{
   width:100%;
-  max-width:400px;
+  max-width:410px;
   background:#fff;
   border-radius:20px;
   padding:35px 30px;
@@ -99,7 +103,7 @@ body{
   border-radius:10px;
   padding:14px;
   background:#b40000;
-  color:white;
+  color:#fff;
   font-weight:bold;
   font-size:15px;
   cursor:pointer;
@@ -120,9 +124,9 @@ body{
   font-size:13px;
 }
 
-/* =====================================================
+/* =========================================================
    MANAGEMENT
-===================================================== */
+========================================================= */
 
 #managementPage{
   display:none;
@@ -136,7 +140,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 25px;
+  padding:12px 25px;
   box-shadow:0 3px 12px rgba(0,0,0,.15);
 }
 
@@ -160,15 +164,19 @@ body{
   cursor:pointer;
 }
 
+.logout-btn:hover{
+  background:rgba(255,255,255,.1);
+}
+
 .content{
   max-width:1400px;
   margin:auto;
   padding:30px 20px;
 }
 
-/* =====================================================
+/* =========================================================
    HOME
-===================================================== */
+========================================================= */
 
 .welcome{
   margin-bottom:25px;
@@ -256,9 +264,9 @@ body{
   color:#fff;
 }
 
-/* =====================================================
+/* =========================================================
    SALES
-===================================================== */
+========================================================= */
 
 #salesPage{
   display:none;
@@ -284,6 +292,11 @@ body{
 
 .sales-header h2{
   font-size:25px;
+}
+
+.sales-header p{
+  color:#777;
+  margin-top:5px;
 }
 
 .date-filter{
@@ -319,79 +332,88 @@ body{
   font-weight:bold;
 }
 
-.load-btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
+.load-btn:hover{
+  background:#8f0000;
 }
 
-/* =====================================================
+.refresh-btn{
+  border:1px solid #ddd;
+  background:#fff;
+  color:#333;
+  padding:10px 15px;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.refresh-btn:hover{
+  background:#f5f5f5;
+}
+
+.sales-actions{
+  display:flex;
+  gap:8px;
+}
+
+/* =========================================================
    LOADING
-===================================================== */
+========================================================= */
 
 #salesLoading{
   display:none;
   background:#fff;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:20px;
+  padding:16px;
   text-align:center;
   color:#777;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 3px 12px rgba(0,0,0,.05);
 }
 
-/* =====================================================
+/* =========================================================
    SUMMARY
-===================================================== */
+========================================================= */
 
 .summary{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-  margin-bottom:25px;
+  grid-template-columns:repeat(5,1fr);
+  gap:15px;
+  margin-bottom:20px;
 }
 
 .summary-card{
   background:#fff;
-  padding:22px;
+  padding:20px;
   border-radius:15px;
   box-shadow:0 4px 15px rgba(0,0,0,.06);
-  position:relative;
-  overflow:hidden;
-}
-
-.summary-card::after{
-  content:"";
-  position:absolute;
-  right:-25px;
-  top:-25px;
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  background:#fff0f0;
+  border:1px solid #eee;
 }
 
 .summary-card .label{
   color:#777;
-  font-size:13px;
+  font-size:12px;
   margin-bottom:8px;
-  position:relative;
-  z-index:1;
+  font-weight:bold;
 }
 
 .summary-card .value{
-  font-size:27px;
+  font-size:24px;
   font-weight:bold;
-  position:relative;
-  z-index:1;
 }
 
-/* =====================================================
-   GRID DASHBOARD
-===================================================== */
+.summary-card.main{
+  border-top:4px solid #b40000;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
 
 .dashboard-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:20px;
+  margin-bottom:20px;
 }
 
 .dashboard-box{
@@ -400,149 +422,136 @@ body{
   padding:22px;
   margin-bottom:20px;
   box-shadow:0 4px 15px rgba(0,0,0,.06);
+  border:1px solid #eee;
 }
 
-.dashboard-box.full{
-  grid-column:1/-1;
+.dashboard-grid .dashboard-box{
+  margin-bottom:0;
 }
 
 .dashboard-box h3{
+  margin-bottom:5px;
+  font-size:18px;
+}
+
+.box-subtitle{
+  color:#888;
+  font-size:12px;
   margin-bottom:18px;
 }
 
-/* =====================================================
+/* =========================================================
    CHART
-===================================================== */
+========================================================= */
 
 .chart-wrap{
   width:100%;
-  overflow-x:auto;
+  height:310px;
+  position:relative;
 }
 
-#salesChart{
-  width:100%;
-  min-height:280px;
-  display:block;
+canvas{
+  width:100%!important;
+  height:100%!important;
 }
 
-.chart-empty{
-  color:#888;
-  text-align:center;
-  padding:80px 20px;
-}
+/* =========================================================
+   RANKING
+========================================================= */
 
-/* =====================================================
-   TOP LIST
-===================================================== */
-
-.top-list{
+.ranking-list{
   display:flex;
   flex-direction:column;
+  gap:8px;
 }
 
-.top-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  padding:13px 0;
-  border-bottom:1px solid #eee;
-}
-
-.top-item:last-child{
-  border-bottom:none;
-}
-
-.top-left{
+.rank-item{
   display:flex;
   align-items:center;
   gap:12px;
-  min-width:0;
+  padding:12px;
+  border-radius:10px;
+  background:#fafafa;
+  border:1px solid #eee;
 }
 
-.rank{
+.rank-number{
   width:30px;
   height:30px;
-  flex:none;
+  min-width:30px;
   border-radius:8px;
-  background:#f3f3f3;
+  background:#b40000;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:bold;
   font-size:12px;
+  font-weight:bold;
 }
 
-.top-name{
+.rank-info{
+  flex:1;
   min-width:0;
 }
 
-.top-name strong{
-  display:block;
+.rank-name{
+  font-weight:bold;
+  font-size:13px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
-.top-name small{
-  display:block;
+.rank-detail{
   color:#888;
-  margin-top:4px;
+  font-size:11px;
+  margin-top:3px;
 }
 
-.top-value{
+.rank-value{
+  font-size:13px;
   font-weight:bold;
   white-space:nowrap;
 }
 
-/* =====================================================
-   TABLE TRANSAKSI
-===================================================== */
+/* =========================================================
+   TABLE
+========================================================= */
 
-.table-wrap{
+.table-scroll{
   width:100%;
   overflow-x:auto;
 }
 
-.sales-table{
+.data-table{
   width:100%;
   border-collapse:collapse;
   min-width:700px;
 }
 
-.sales-table th{
-  background:#fafafa;
+.data-table th{
   text-align:left;
+  background:#f8f8f8;
+  color:#666;
+  font-size:11px;
   padding:12px;
+  border-bottom:1px solid #ddd;
+  white-space:nowrap;
+}
+
+.data-table td{
+  padding:12px;
+  border-bottom:1px solid #eee;
   font-size:12px;
-  color:#777;
-  border-bottom:1px solid #eee;
 }
 
-.sales-table td{
-  padding:13px 12px;
-  border-bottom:1px solid #eee;
-  font-size:13px;
+.data-table tbody tr:hover{
+  background:#fafafa;
 }
 
-.sales-table td.amount{
-  text-align:right;
-  font-weight:bold;
+.text-right{
+  text-align:right!important;
 }
-
-.status-approved{
-  display:inline-block;
-  padding:4px 8px;
-  border-radius:5px;
-  background:#eaf8ee;
-  color:#16803c;
-  font-size:10px;
-  font-weight:bold;
-}
-
-/* =====================================================
-   EMPTY
-===================================================== */
 
 .empty{
   color:#888;
@@ -550,9 +559,34 @@ body{
   padding:30px;
 }
 
-/* =====================================================
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-approved{
+  display:inline-block;
+  background:#eaf8ef;
+  color:#16833a;
+  padding:4px 7px;
+  border-radius:5px;
+  font-size:10px;
+  font-weight:bold;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.sales-footer{
+  color:#999;
+  font-size:11px;
+  text-align:right;
+  padding:5px 0 20px;
+}
+
+/* =========================================================
    RESPONSIVE
-===================================================== */
+========================================================= */
 
 @media(max-width:1100px){
 
@@ -560,24 +594,45 @@ body{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .dashboard-grid{
-    grid-template-columns:1fr;
+  .summary{
+    grid-template-columns:repeat(3,1fr);
   }
 
 }
 
-@media(max-width:700px){
+@media(max-width:800px){
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+
+  .sales-header{
+    display:block;
+  }
+
+  .date-filter{
+    margin-top:15px;
+  }
+
+}
+
+@media(max-width:650px){
 
   .topbar{
     padding:12px 15px;
   }
 
   .brand-title{
-    font-size:16px;
+    font-size:15px;
   }
 
   .brand-subtitle{
-    font-size:10px;
+    font-size:9px;
+  }
+
+  .logout-btn{
+    padding:8px 10px;
+    font-size:11px;
   }
 
   .content{
@@ -589,30 +644,26 @@ body{
   }
 
   .summary{
-    grid-template-columns:1fr;
-    gap:12px;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
   }
 
   .summary-card{
-    padding:18px;
+    padding:16px;
   }
 
   .summary-card .value{
-    font-size:24px;
+    font-size:20px;
   }
 
-  .sales-header{
-    display:block;
-  }
-
-  .sales-header h2{
-    font-size:22px;
+  .summary-card.main{
+    grid-column:1 / -1;
   }
 
   .date-filter{
-    margin-top:15px;
     display:grid;
     grid-template-columns:1fr 1fr;
+    width:100%;
   }
 
   .date-filter input{
@@ -620,20 +671,36 @@ body{
   }
 
   .date-filter .load-btn{
-    grid-column:1/-1;
+    grid-column:1 / -1;
   }
 
-  .dashboard-box{
-    padding:17px;
+  .sales-actions{
+    grid-column:1 / -1;
   }
 
-  .top-value{
-    font-size:13px;
+  .sales-actions button{
+    flex:1;
+  }
+
+  .sales-header h2{
+    font-size:22px;
+  }
+
+  .chart-wrap{
+    height:260px;
   }
 
 }
 
-@media(max-width:450px){
+@media(max-width:430px){
+
+  .summary{
+    grid-template-columns:1fr;
+  }
+
+  .summary-card.main{
+    grid-column:auto;
+  }
 
   .date-filter{
     grid-template-columns:1fr;
@@ -643,20 +710,15 @@ body{
     grid-column:auto;
   }
 
-  .logout-btn{
-    padding:7px 10px;
-    font-size:11px;
-  }
-
 }
 </style>
 </head>
 
 <body>
 
-<!-- =====================================================
+<!-- =======================================================
      LOGIN
-===================================================== -->
+======================================================= -->
 
 <section id="loginPage">
 
@@ -669,6 +731,7 @@ body{
     <p>Management System</p>
 
     <div class="input-group">
+
       <label>Username</label>
 
       <input
@@ -676,9 +739,11 @@ body{
         id="username"
         autocomplete="username"
         placeholder="Masukkan username">
+
     </div>
 
     <div class="input-group">
+
       <label>Password</label>
 
       <input
@@ -686,12 +751,15 @@ body{
         id="password"
         autocomplete="current-password"
         placeholder="Masukkan password">
+
     </div>
 
     <button
       class="login-btn"
       onclick="login()">
+
       MASUK
+
     </button>
 
     <div id="loginError">
@@ -703,9 +771,9 @@ body{
 </section>
 
 
-<!-- =====================================================
+<!-- =======================================================
      MANAGEMENT
-===================================================== -->
+======================================================= -->
 
 <section id="managementPage">
 
@@ -726,7 +794,9 @@ body{
     <button
       class="logout-btn"
       onclick="logout()">
+
       Keluar
+
     </button>
 
   </header>
@@ -734,9 +804,10 @@ body{
 
   <main class="content">
 
-    <!-- =================================================
+
+    <!-- ===================================================
          HOME
-    ================================================== -->
+    ==================================================== -->
 
     <div id="homePage">
 
@@ -753,6 +824,9 @@ body{
 
       <div class="modules">
 
+
+        <!-- PENJUALAN -->
+
         <div
           class="module-card active sales"
           onclick="bukaPenjualan()">
@@ -765,7 +839,8 @@ body{
 
           <p>
             Melihat omzet, transaksi, qty,
-            produk terlaris, dan performa brand.
+            produk terlaris, brand, grafik
+            dan performa penjualan.
           </p>
 
           <span class="badge">
@@ -774,6 +849,8 @@ body{
 
         </div>
 
+
+        <!-- PIUTANG -->
 
         <div class="module-card disabled">
 
@@ -785,8 +862,8 @@ body{
 
           <p>
             Monitoring piutang customer,
-            jatuh tempo, dan pelanggan dengan
-            saldo terbesar.
+            jatuh tempo, dan pelanggan
+            dengan saldo terbesar.
           </p>
 
           <span class="badge">
@@ -795,6 +872,8 @@ body{
 
         </div>
 
+
+        <!-- CUSTOMER -->
 
         <div class="module-card disabled">
 
@@ -805,8 +884,8 @@ body{
           <h3>Customer</h3>
 
           <p>
-            Analisis pelanggan dan histori
-            transaksi.
+            Analisis pelanggan dan
+            histori transaksi.
           </p>
 
           <span class="badge">
@@ -815,6 +894,8 @@ body{
 
         </div>
 
+
+        <!-- SUPPLIER -->
 
         <div class="module-card disabled">
 
@@ -836,6 +917,8 @@ body{
         </div>
 
 
+        <!-- CASH FLOW -->
+
         <div class="module-card disabled">
 
           <div class="module-icon">
@@ -855,6 +938,8 @@ body{
 
         </div>
 
+
+        <!-- LAPORAN -->
 
         <div class="module-card disabled">
 
@@ -880,16 +965,18 @@ body{
     </div>
 
 
-    <!-- =================================================
+    <!-- ===================================================
          DASHBOARD PENJUALAN
-    ================================================== -->
+    ==================================================== -->
 
     <div id="salesPage">
 
       <button
         class="back-btn"
         onclick="kembaliHome()">
+
         ← Kembali
+
       </button>
 
 
@@ -897,9 +984,11 @@ body{
 
         <div>
 
-          <h2>Dashboard Penjualan</h2>
+          <h2>
+            Dashboard Penjualan
+          </h2>
 
-          <p style="color:#777;margin-top:5px;">
+          <p>
             Data penjualan dari Accurate
           </p>
 
@@ -910,7 +999,9 @@ body{
 
           <div>
 
-            <label>Mulai</label>
+            <label>
+              Mulai
+            </label>
 
             <input
               type="date"
@@ -921,7 +1012,9 @@ body{
 
           <div>
 
-            <label>Akhir</label>
+            <label>
+              Akhir
+            </label>
 
             <input
               type="date"
@@ -930,14 +1023,25 @@ body{
           </div>
 
 
-          <button
-            class="load-btn"
-            id="loadSalesBtn"
-            onclick="ambilPenjualan()">
+          <div class="sales-actions">
 
-            Tampilkan
+            <button
+              class="load-btn"
+              onclick="ambilPenjualan()">
 
-          </button>
+              Tampilkan
+
+            </button>
+
+            <button
+              class="refresh-btn"
+              onclick="refreshPenjualan()">
+
+              ↻ Refresh
+
+            </button>
+
+          </div>
 
         </div>
 
@@ -949,11 +1053,13 @@ body{
       </div>
 
 
-      <!-- SUMMARY -->
+      <!-- =================================================
+           SUMMARY
+      ================================================== -->
 
       <div class="summary">
 
-        <div class="summary-card">
+        <div class="summary-card main">
 
           <div class="label">
             OMZET
@@ -962,7 +1068,9 @@ body{
           <div
             class="value"
             id="omzet">
+
             Rp0
+
           </div>
 
         </div>
@@ -977,7 +1085,9 @@ body{
           <div
             class="value"
             id="transaksi">
+
             0
+
           </div>
 
         </div>
@@ -992,30 +1102,42 @@ body{
           <div
             class="value"
             id="qty">
+
             0
+
           </div>
 
         </div>
 
-      </div>
 
+        <div class="summary-card">
 
-      <!-- GRAFIK -->
-
-      <div class="dashboard-box full">
-
-        <h3>📈 Grafik Penjualan Harian</h3>
-
-        <div class="chart-wrap">
-
-          <canvas id="salesChart"></canvas>
+          <div class="label">
+            JUMLAH PRODUK
+          </div>
 
           <div
-            id="chartEmpty"
-            class="chart-empty"
-            style="display:none;">
+            class="value"
+            id="jumlahProduk">
 
-            Belum ada data grafik.
+            0
+
+          </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <div class="label">
+            JUMLAH BRAND
+          </div>
+
+          <div
+            class="value"
+            id="jumlahBrand">
+
+            0
 
           </div>
 
@@ -1024,17 +1146,73 @@ body{
       </div>
 
 
-      <!-- TOP PRODUK + BRAND -->
+      <!-- =================================================
+           GRAFIK
+      ================================================== -->
 
       <div class="dashboard-grid">
 
+
         <div class="dashboard-box">
 
-          <h3>🏆 Produk Terlaris</h3>
+          <h3>
+            Grafik Omzet
+          </h3>
+
+          <div class="box-subtitle">
+            Performa omzet berdasarkan tanggal
+          </div>
+
+          <div class="chart-wrap">
+
+            <canvas id="omzetChart"></canvas>
+
+          </div>
+
+        </div>
+
+
+        <div class="dashboard-box">
+
+          <h3>
+            Grafik Aktivitas Penjualan
+          </h3>
+
+          <div class="box-subtitle">
+            Jumlah transaksi dan qty
+          </div>
+
+          <div class="chart-wrap">
+
+            <canvas id="aktivitasChart"></canvas>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           RANKING
+      ================================================== -->
+
+      <div class="dashboard-grid">
+
+
+        <div class="dashboard-box">
+
+          <h3>
+            🏆 Top Produk
+          </h3>
+
+          <div class="box-subtitle">
+            Berdasarkan omzet
+          </div>
 
           <div
             id="produkList"
-            class="top-list">
+            class="ranking-list">
 
             <div class="empty">
               Belum ada data.
@@ -1047,11 +1225,17 @@ body{
 
         <div class="dashboard-box">
 
-          <h3>🏷️ Brand Terlaris</h3>
+          <h3>
+            🏆 Top Brand
+          </h3>
+
+          <div class="box-subtitle">
+            Berdasarkan omzet
+          </div>
 
           <div
             id="brandList"
-            class="top-list">
+            class="ranking-list">
 
             <div class="empty">
               Belum ada data.
@@ -1064,44 +1248,57 @@ body{
       </div>
 
 
-      <!-- TRANSAKSI -->
+      <!-- =================================================
+           DETAIL PRODUK
+      ================================================== -->
 
-      <div class="dashboard-box full">
+      <div class="dashboard-box">
 
-        <h3>🧾 Detail Transaksi</h3>
+        <h3>
+          Detail Produk
+        </h3>
 
-        <div
-          id="transactionInfo"
-          style="
-            color:#777;
-            font-size:12px;
-            margin-bottom:12px;
-          ">
-          Belum ada data.
+        <div class="box-subtitle">
+          Ringkasan seluruh produk yang terjual pada periode
         </div>
 
-        <div class="table-wrap">
+        <div class="table-scroll">
 
-          <table class="sales-table">
+          <table class="data-table">
 
             <thead>
 
               <tr>
 
-                <th>No</th>
-                <th>Invoice</th>
-                <th>Tanggal</th>
-                <th>Kasir</th>
-                <th>Status</th>
-                <th style="text-align:right;">
-                  Total
+                <th>
+                  #
+                </th>
+
+                <th>
+                  Produk
+                </th>
+
+                <th>
+                  Kode
+                </th>
+
+                <th>
+                  Satuan
+                </th>
+
+                <th class="text-right">
+                  Qty
+                </th>
+
+                <th class="text-right">
+                  Omzet
                 </th>
 
               </tr>
 
             </thead>
 
-            <tbody id="transactionBody">
+            <tbody id="produkTableBody">
 
               <tr>
 
@@ -1123,6 +1320,89 @@ body{
 
       </div>
 
+
+      <!-- =================================================
+           DETAIL TRANSAKSI
+      ================================================== -->
+
+      <div class="dashboard-box">
+
+        <h3>
+          Detail Transaksi
+        </h3>
+
+        <div class="box-subtitle">
+          Sales Invoice yang berstatus APPROVED
+        </div>
+
+        <div class="table-scroll">
+
+          <table class="data-table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  #
+                </th>
+
+                <th>
+                  Nomor Invoice
+                </th>
+
+                <th>
+                  Tanggal
+                </th>
+
+                <th>
+                  Kasir
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+                <th class="text-right">
+                  Total
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody id="transaksiTableBody">
+
+              <tr>
+
+                <td
+                  colspan="6"
+                  class="empty">
+
+                  Belum ada data.
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <div class="sales-footer">
+
+        Data berasal dari Accurate •
+        <span id="periodeText">
+          -
+        </span>
+
+      </div>
+
     </div>
 
   </main>
@@ -1132,28 +1412,43 @@ body{
 
 <script>
 
-/* =====================================================
-   KONFIGURASI API
-===================================================== */
+/* =========================================================
+   KONFIGURASI
+========================================================= */
+
+/*
+ * URL KHUSUS SENTRAL MAKMUR MANAGEMENT.
+ *
+ * JANGAN DIGANTI DENGAN URL APLIKASI CEK STOK & HARGA.
+ */
 
 const API_URL =
   'https://script.google.com/macros/s/AKfycbz3dKH-1fh3c_cnnZm6xcJFW6zGNnWTnZA403FFc3FDorL9xz_VHim7RL8DTMqxxG5urA/exec';
 
 
-/* =====================================================
+let dataPenjualanTerakhir = null;
+
+let omzetChartInstance = null;
+
+let aktivitasChartInstance = null;
+
+
+/* =========================================================
    LOGIN
-===================================================== */
+========================================================= */
 
 function login(){
 
   const username =
-    document.getElementById('username').value.trim();
+    document
+      .getElementById('username')
+      .value
+      .trim();
 
   const password =
-    document.getElementById('password').value;
-
-  const error =
-    document.getElementById('loginError');
+    document
+      .getElementById('password')
+      .value;
 
 
   if(
@@ -1166,13 +1461,17 @@ function login(){
       'true'
     );
 
-    error.style.display='none';
+    document
+      .getElementById('loginError')
+      .style.display='none';
 
     tampilkanManagement();
 
   }else{
 
-    error.style.display='block';
+    document
+      .getElementById('loginError')
+      .style.display='block';
 
   }
 
@@ -1185,47 +1484,47 @@ function logout(){
     'sm_management_login'
   );
 
-  document.getElementById(
-    'managementPage'
-  ).style.display='none';
+  document
+    .getElementById('managementPage')
+    .style.display='none';
 
-  document.getElementById(
-    'loginPage'
-  ).style.display='flex';
+  document
+    .getElementById('loginPage')
+    .style.display='flex';
 
 }
 
 
-/* =====================================================
-   TAMPIL MANAGEMENT
-===================================================== */
+/* =========================================================
+   MANAGEMENT
+========================================================= */
 
 function tampilkanManagement(){
 
-  document.getElementById(
-    'loginPage'
-  ).style.display='none';
+  document
+    .getElementById('loginPage')
+    .style.display='none';
 
-  document.getElementById(
-    'managementPage'
-  ).style.display='block';
+  document
+    .getElementById('managementPage')
+    .style.display='block';
 
 }
 
 
-/* =====================================================
+/* =========================================================
    NAVIGASI
-===================================================== */
+========================================================= */
 
 function bukaPenjualan(){
 
-  document.getElementById(
-    'homePage'
-  ).style.display='none';
+  document
+    .getElementById('homePage')
+    .style.display='none';
 
-  document.getElementById(
-    'salesPage'
-  ).style.display='block';
+  document
+    .getElementById('salesPage')
+    .style.display='block';
 
   ambilPenjualan();
 
@@ -1234,20 +1533,20 @@ function bukaPenjualan(){
 
 function kembaliHome(){
 
-  document.getElementById(
-    'salesPage'
-  ).style.display='none';
+  document
+    .getElementById('salesPage')
+    .style.display='none';
 
-  document.getElementById(
-    'homePage'
-  ).style.display='block';
+  document
+    .getElementById('homePage')
+    .style.display='block';
 
 }
 
 
-/* =====================================================
+/* =========================================================
    FORMAT
-===================================================== */
+========================================================= */
 
 function rupiah(value){
 
@@ -1276,13 +1575,14 @@ function angka(value){
 }
 
 
-/* =====================================================
+/* =========================================================
    TANGGAL
-===================================================== */
+========================================================= */
 
 function tanggalHariIni(){
 
-  const sekarang = new Date();
+  const sekarang =
+    new Date();
 
   const tahun =
     sekarang.getFullYear();
@@ -1308,43 +1608,51 @@ function tanggalHariIni(){
 }
 
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
+function formatTanggalIndonesia(value){
 
-function escapeHtml(value){
+  if(!value){
+    return '-';
+  }
 
-  return String(value || '')
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#039;');
+  const parts =
+    String(value).split('-');
+
+  if(parts.length !== 3){
+    return value;
+  }
+
+  return (
+    parts[2] +
+    '/' +
+    parts[1] +
+    '/' +
+    parts[0]
+  );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    AMBIL PENJUALAN
-===================================================== */
+========================================================= */
 
 async function ambilPenjualan(){
 
   const mulai =
-    document.getElementById(
-      'tanggalMulai'
-    ).value;
+    document
+      .getElementById('tanggalMulai')
+      .value;
 
   const akhir =
-    document.getElementById(
-      'tanggalAkhir'
-    ).value;
+    document
+      .getElementById('tanggalAkhir')
+      .value;
 
 
   if(!mulai || !akhir){
 
     alert(
-      'Silakan pilih tanggal mulai dan akhir.'
+      'Silakan pilih tanggal mulai dan tanggal akhir.'
     );
 
     return;
@@ -1352,22 +1660,20 @@ async function ambilPenjualan(){
   }
 
 
-  const loading =
-    document.getElementById(
-      'salesLoading'
+  if(mulai > akhir){
+
+    alert(
+      'Tanggal mulai tidak boleh lebih besar dari tanggal akhir.'
     );
 
-  const button =
-    document.getElementById(
-      'loadSalesBtn'
-    );
+    return;
+
+  }
 
 
-  loading.style.display='block';
-
-  button.disabled=true;
-
-  button.textContent='Memuat...';
+  document
+    .getElementById('salesLoading')
+    .style.display='block';
 
 
   try{
@@ -1388,7 +1694,13 @@ async function ambilPenjualan(){
 
 
     const response =
-      await fetch(url);
+      await fetch(
+        url,
+        {
+          method:'GET',
+          cache:'no-store'
+        }
+      );
 
 
     if(!response.ok){
@@ -1405,28 +1717,31 @@ async function ambilPenjualan(){
       await response.json();
 
 
-    console.log(
-      'DATA PENJUALAN:',
-      data
-    );
-
-
     if(!data.success){
 
       throw new Error(
         data.message ||
-        'Gagal mengambil data penjualan.'
+        'Gagal mengambil data.'
       );
 
     }
 
 
-    tampilkanPenjualan(data);
+    dataPenjualanTerakhir =
+      data;
+
+
+    tampilkanPenjualan(
+      data
+    );
 
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      'ERROR PENJUALAN:',
+      error
+    );
 
     alert(
       'Gagal mengambil data penjualan.\n\n' +
@@ -1436,166 +1751,245 @@ async function ambilPenjualan(){
 
   }finally{
 
-    loading.style.display='none';
-
-    button.disabled=false;
-
-    button.textContent='Tampilkan';
+    document
+      .getElementById('salesLoading')
+      .style.display='none';
 
   }
 
 }
 
 
-/* =====================================================
-   TAMPIL PENJUALAN
-===================================================== */
+/* =========================================================
+   REFRESH
+========================================================= */
+
+function refreshPenjualan(){
+
+  ambilPenjualan();
+
+}
+
+
+/* =========================================================
+   TAMPILKAN PENJUALAN
+========================================================= */
 
 function tampilkanPenjualan(data){
 
   const ringkasan =
-    data.ringkasan || {};
+    data.ringkasan ||
+    {};
 
 
-  document.getElementById(
-    'omzet'
-  ).textContent =
-    rupiah(
-      ringkasan.omzet
-    );
-
-
-  document.getElementById(
-    'transaksi'
-  ).textContent =
-    angka(
-      ringkasan.transaksi
-    );
-
-
-  document.getElementById(
-    'qty'
-  ).textContent =
-    angka(
-      ringkasan.qty
-    );
-
-
-  tampilkanGrafik(
-    Array.isArray(data.harian)
-      ? data.harian
-      : []
-  );
-
-
-  tampilkanProduk(
+  const produk =
     Array.isArray(data.produk)
       ? data.produk
-      : []
-  );
+      : [];
 
 
-  tampilkanBrand(
+  const brand =
     Array.isArray(data.brand)
       ? data.brand
-      : []
+      : [];
+
+
+  const harian =
+    Array.isArray(data.harian)
+      ? data.harian
+      : [];
+
+
+  const transaksi =
+    Array.isArray(data.transaksi)
+      ? data.transaksi
+      : [];
+
+
+  /* -------------------------------------------------------
+     SUMMARY
+  ------------------------------------------------------- */
+
+  document
+    .getElementById('omzet')
+    .textContent =
+      rupiah(
+        ringkasan.omzet
+      );
+
+
+  document
+    .getElementById('transaksi')
+    .textContent =
+      angka(
+        ringkasan.transaksi
+      );
+
+
+  document
+    .getElementById('qty')
+    .textContent =
+      angka(
+        ringkasan.qty
+      );
+
+
+  document
+    .getElementById('jumlahProduk')
+    .textContent =
+      angka(
+        produk.length
+      );
+
+
+  document
+    .getElementById('jumlahBrand')
+    .textContent =
+      angka(
+        brand.length
+      );
+
+
+  /* -------------------------------------------------------
+     PERIODE
+  ------------------------------------------------------- */
+
+  const periode =
+    data.periode || {};
+
+
+  document
+    .getElementById('periodeText')
+    .textContent =
+      formatTanggalIndonesia(
+        periode.mulai
+      ) +
+      ' s/d ' +
+      formatTanggalIndonesia(
+        periode.akhir
+      );
+
+
+  /* -------------------------------------------------------
+     GRAFIK
+  ------------------------------------------------------- */
+
+  buatGrafikOmzet(
+    harian
   );
 
 
-  tampilkanTransaksi(
-    Array.isArray(data.transaksi)
-      ? data.transaksi
-      : []
+  buatGrafikAktivitas(
+    harian
+  );
+
+
+  /* -------------------------------------------------------
+     RANKING
+  ------------------------------------------------------- */
+
+  tampilkanTopProduk(
+    produk
+  );
+
+
+  tampilkanTopBrand(
+    brand
+  );
+
+
+  /* -------------------------------------------------------
+     TABLE
+  ------------------------------------------------------- */
+
+  tampilkanProdukTable(
+    produk
+  );
+
+
+  tampilkanTransaksiTable(
+    transaksi
   );
 
 }
 
 
-/* =====================================================
-   GRAFIK PENJUALAN
-===================================================== */
+/* =========================================================
+   GRAFIK OMZET
+========================================================= */
 
-function tampilkanGrafik(data){
+function buatGrafikOmzet(harian){
 
   const canvas =
     document.getElementById(
-      'salesChart'
+      'omzetChart'
     );
 
-  const empty =
-    document.getElementById(
-      'chartEmpty'
-    );
+
+  if(
+    omzetChartInstance
+  ){
+
+    omzetChartInstance
+      .destroy();
+
+  }
 
 
   const ctx =
     canvas.getContext('2d');
 
 
-  const parentWidth =
-    canvas.parentElement.clientWidth;
-
-
   const width =
-    Math.max(
-      parentWidth,
-      data.length * 75,
-      500
-    );
+    canvas.clientWidth ||
+    700;
 
-
-  canvas.width =
-    width;
-
-  canvas.height =
+  const height =
+    canvas.clientHeight ||
     300;
 
 
-  ctx.clearRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
+  canvas.width =
+    width *
+    window.devicePixelRatio;
+
+  canvas.height =
+    height *
+    window.devicePixelRatio;
+
+
+  ctx.scale(
+    window.devicePixelRatio,
+    window.devicePixelRatio
   );
 
 
-  if(data.length===0){
-
-    empty.style.display='block';
-
-    canvas.style.display='none';
-
-    return;
-
-  }
-
-
-  empty.style.display='none';
-
-  canvas.style.display='block';
-
-
-  const paddingLeft=65;
-  const paddingRight=25;
-  const paddingTop=25;
-  const paddingBottom=55;
+  const padding = {
+    left:55,
+    right:20,
+    top:20,
+    bottom:45
+  };
 
 
   const chartWidth =
     width -
-    paddingLeft -
-    paddingRight;
+    padding.left -
+    padding.right;
+
 
   const chartHeight =
-    canvas.height -
-    paddingTop -
-    paddingBottom;
+    height -
+    padding.top -
+    padding.bottom;
 
 
   const values =
-    data.map(
+    harian.map(
       item =>
-        Number(item.omzet || 0)
+        Number(
+          item.omzet || 0
+        )
     );
 
 
@@ -1606,50 +2000,135 @@ function tampilkanGrafik(data){
     );
 
 
+  const count =
+    harian.length;
+
+
+  function x(index){
+
+    if(count <= 1){
+
+      return (
+        padding.left +
+        chartWidth / 2
+      );
+
+    }
+
+    return (
+      padding.left +
+      (
+        index /
+        (count - 1)
+      ) *
+      chartWidth
+    );
+
+  }
+
+
+  function y(value){
+
+    return (
+      padding.top +
+      chartHeight -
+      (
+        value /
+        maxValue
+      ) *
+      chartHeight
+    );
+
+  }
+
+
   /* GRID */
 
-  ctx.strokeStyle='#eeeeee';
+  ctx.strokeStyle =
+    '#eeeeee';
 
   ctx.lineWidth=1;
 
   for(let i=0;i<=4;i++){
 
-    const y =
-      paddingTop +
-      chartHeight -
-      (chartHeight * i / 4);
+    const yy =
+      padding.top +
+      (
+        i/4
+      ) *
+      chartHeight;
 
 
     ctx.beginPath();
 
     ctx.moveTo(
-      paddingLeft,
-      y
+      padding.left,
+      yy
     );
 
     ctx.lineTo(
-      width-paddingRight,
-      y
+      width-padding.right,
+      yy
     );
 
     ctx.stroke();
 
+  }
 
-    ctx.fillStyle='#888';
 
-    ctx.font='11px Arial';
+  /* LABEL Y */
 
-    const label =
-      rupiah(
-        maxValue * i / 4
+  ctx.fillStyle =
+    '#888';
+
+  ctx.font =
+    '10px Arial';
+
+  ctx.textAlign =
+    'right';
+
+
+  for(let i=0;i<=4;i++){
+
+    const value =
+      maxValue *
+      (
+        1 -
+        i/4
       );
+
+    const yy =
+      padding.top +
+      (
+        i/4
+      ) *
+      chartHeight;
 
 
     ctx.fillText(
-      label,
-      5,
-      y+4
+      formatChartRupiah(value),
+      padding.left-8,
+      yy+4
     );
+
+  }
+
+
+  if(harian.length===0){
+
+    ctx.textAlign='center';
+
+    ctx.fillStyle='#999';
+
+    ctx.font='13px Arial';
+
+    ctx.fillText(
+      'Belum ada data grafik',
+      width/2,
+      height/2
+    );
+
+    return;
 
   }
 
@@ -1658,40 +2137,33 @@ function tampilkanGrafik(data){
 
   ctx.beginPath();
 
+  harian.forEach(
+    (item,index)=>{
 
-  data.forEach(
-    function(item,index){
+      const xx =
+        x(index);
 
-      const x =
-        data.length === 1
-          ? paddingLeft +
-            chartWidth/2
-          :
-            paddingLeft +
-            (
-              chartWidth *
-              index /
-              (data.length-1)
-            );
-
-
-      const y =
-        paddingTop +
-        chartHeight -
-        (
-          Number(item.omzet || 0) /
-          maxValue *
-          chartHeight
+      const yy =
+        y(
+          Number(
+            item.omzet || 0
+          )
         );
 
 
       if(index===0){
 
-        ctx.moveTo(x,y);
+        ctx.moveTo(
+          xx,
+          yy
+        );
 
       }else{
 
-        ctx.lineTo(x,y);
+        ctx.lineTo(
+          xx,
+          yy
+        );
 
       }
 
@@ -1699,54 +2171,92 @@ function tampilkanGrafik(data){
   );
 
 
-  ctx.strokeStyle='#b40000';
+  ctx.strokeStyle =
+    '#b40000';
 
   ctx.lineWidth=3;
 
   ctx.stroke();
 
 
-  /* DOTS + LABEL */
+  /* POINT */
 
-  data.forEach(
-    function(item,index){
+  harian.forEach(
+    (item,index)=>{
 
-      const x =
-        data.length === 1
-          ? paddingLeft +
-            chartWidth/2
-          :
-            paddingLeft +
-            (
-              chartWidth *
-              index /
-              (data.length-1)
-            );
+      const xx =
+        x(index);
 
-
-      const y =
-        paddingTop +
-        chartHeight -
-        (
-          Number(item.omzet || 0) /
-          maxValue *
-          chartHeight
+      const yy =
+        y(
+          Number(
+            item.omzet || 0
+          )
         );
 
 
       ctx.beginPath();
 
       ctx.arc(
-        x,
-        y,
+        xx,
+        yy,
         4,
         0,
         Math.PI*2
       );
 
-      ctx.fillStyle='#b40000';
+      ctx.fillStyle =
+        '#b40000';
 
       ctx.fill();
+
+    }
+  );
+
+
+  /* X LABEL */
+
+  ctx.fillStyle =
+    '#888';
+
+  ctx.font =
+    '10px Arial';
+
+  ctx.textAlign =
+    'center';
+
+
+  const maxLabels =
+    width < 500
+      ? 5
+      : 10;
+
+
+  const step =
+    Math.max(
+      1,
+      Math.ceil(
+        count /
+        maxLabels
+      )
+    );
+
+
+  harian.forEach(
+    (item,index)=>{
+
+      if(
+        index % step !== 0 &&
+        index !== count-1
+      ){
+
+        return;
+
+      }
+
+
+      const xx =
+        x(index);
 
 
       const tanggal =
@@ -1755,40 +2265,420 @@ function tampilkanGrafik(data){
         );
 
 
-      const label =
-        tanggal.length >= 10
-          ? tanggal.substring(8,10) +
-            '/' +
-            tanggal.substring(5,7)
-          : tanggal;
-
-
-      ctx.fillStyle='#777';
-
-      ctx.font='11px Arial';
-
-      ctx.textAlign='center';
-
       ctx.fillText(
-        label,
-        x,
-        canvas.height-20
+        tanggal.slice(8,10) +
+        '/' +
+        tanggal.slice(5,7),
+        xx,
+        height-18
       );
 
     }
   );
 
+}
+
+
+/* =========================================================
+   GRAFIK AKTIVITAS
+========================================================= */
+
+function buatGrafikAktivitas(harian){
+
+  const canvas =
+    document.getElementById(
+      'aktivitasChart'
+    );
+
+
+  if(
+    aktivitasChartInstance
+  ){
+
+    aktivitasChartInstance
+      .destroy();
+
+  }
+
+
+  const ctx =
+    canvas.getContext('2d');
+
+
+  const width =
+    canvas.clientWidth ||
+    700;
+
+  const height =
+    canvas.clientHeight ||
+    300;
+
+
+  canvas.width =
+    width *
+    window.devicePixelRatio;
+
+  canvas.height =
+    height *
+    window.devicePixelRatio;
+
+
+  ctx.scale(
+    window.devicePixelRatio,
+    window.devicePixelRatio
+  );
+
+
+  const padding={
+    left:45,
+    right:20,
+    top:20,
+    bottom:45
+  };
+
+
+  const chartWidth =
+    width -
+    padding.left -
+    padding.right;
+
+
+  const chartHeight =
+    height -
+    padding.top -
+    padding.bottom;
+
+
+  const transaksi =
+    harian.map(
+      item =>
+        Number(
+          item.transaksi || 0
+        )
+    );
+
+
+  const qty =
+    harian.map(
+      item =>
+        Number(
+          item.qty || 0
+        )
+    );
+
+
+  const maxValue =
+    Math.max(
+      ...transaksi,
+      ...qty,
+      1
+    );
+
+
+  const count =
+    harian.length;
+
+
+  function x(index){
+
+    if(count<=1){
+
+      return (
+        padding.left +
+        chartWidth/2
+      );
+
+    }
+
+    return (
+      padding.left +
+      (
+        index /
+        (count-1)
+      ) *
+      chartWidth
+    );
+
+  }
+
+
+  function y(value){
+
+    return (
+      padding.top +
+      chartHeight -
+      (
+        value /
+        maxValue
+      ) *
+      chartHeight
+    );
+
+  }
+
+
+  /* GRID */
+
+  ctx.strokeStyle =
+    '#eeeeee';
+
+  ctx.lineWidth=1;
+
+
+  for(let i=0;i<=4;i++){
+
+    const yy =
+      padding.top +
+      (
+        i/4
+      ) *
+      chartHeight;
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      padding.left,
+      yy
+    );
+
+    ctx.lineTo(
+      width-padding.right,
+      yy
+    );
+
+    ctx.stroke();
+
+  }
+
+
+  /* Y LABEL */
+
+  ctx.fillStyle='#888';
+
+  ctx.font='10px Arial';
+
+  ctx.textAlign='right';
+
+
+  for(let i=0;i<=4;i++){
+
+    const value =
+      maxValue *
+      (
+        1-i/4
+      );
+
+
+    const yy =
+      padding.top +
+      (
+        i/4
+      ) *
+      chartHeight;
+
+
+    ctx.fillText(
+      Math.round(value),
+      padding.left-7,
+      yy+4
+    );
+
+  }
+
+
+  if(count===0){
+
+    ctx.textAlign='center';
+
+    ctx.fillStyle='#999';
+
+    ctx.font='13px Arial';
+
+    ctx.fillText(
+      'Belum ada data grafik',
+      width/2,
+      height/2
+    );
+
+    return;
+
+  }
+
+
+  function drawLine(
+    values,
+    lineColor
+  ){
+
+    ctx.beginPath();
+
+
+    values.forEach(
+      (value,index)=>{
+
+        const xx =
+          x(index);
+
+        const yy =
+          y(value);
+
+
+        if(index===0){
+
+          ctx.moveTo(
+            xx,
+            yy
+          );
+
+        }else{
+
+          ctx.lineTo(
+            xx,
+            yy
+          );
+
+        }
+
+      }
+    );
+
+
+    ctx.strokeStyle =
+      lineColor;
+
+    ctx.lineWidth=2;
+
+    ctx.stroke();
+
+  }
+
+
+  /*
+   * Tidak memakai library chart eksternal.
+   * Jadi dashboard tetap ringan.
+   */
+
+  drawLine(
+    transaksi,
+    '#b40000'
+  );
+
+
+  drawLine(
+    qty,
+    '#555'
+  );
+
+
+  /* LEGEND */
+
+  ctx.fillStyle =
+    '#b40000';
+
+  ctx.fillRect(
+    padding.left,
+    3,
+    10,
+    10
+  );
+
+
+  ctx.fillStyle='#555';
+
+  ctx.font='10px Arial';
 
   ctx.textAlign='left';
+
+  ctx.fillText(
+    'Transaksi',
+    padding.left+15,
+    12
+  );
+
+
+  ctx.fillStyle =
+    '#555';
+
+  ctx.fillRect(
+    padding.left+90,
+    3,
+    10,
+    10
+  );
+
+
+  ctx.fillStyle='#555';
+
+  ctx.fillText(
+    'Qty',
+    padding.left+105,
+    12
+  );
+
+
+  /* X LABEL */
+
+  ctx.fillStyle='#888';
+
+  ctx.font='10px Arial';
+
+  ctx.textAlign='center';
+
+
+  const maxLabels =
+    width<500
+      ? 5
+      : 10;
+
+
+  const step =
+    Math.max(
+      1,
+      Math.ceil(
+        count/maxLabels
+      )
+    );
+
+
+  harian.forEach(
+    (item,index)=>{
+
+      if(
+        index%step!==0 &&
+        index!==count-1
+      ){
+
+        return;
+
+      }
+
+
+      const tanggal =
+        String(
+          item.tanggal || ''
+        );
+
+
+      ctx.fillText(
+        tanggal.slice(8,10) +
+        '/' +
+        tanggal.slice(5,7),
+        x(index),
+        height-18
+      );
+
+    }
+  );
 
 }
 
 
-/* =====================================================
-   PRODUK
-===================================================== */
+/* =========================================================
+   TOP PRODUK
+========================================================= */
 
-function tampilkanProduk(produk){
+function tampilkanTopProduk(produk){
 
   const container =
     document.getElementById(
@@ -1796,7 +2686,9 @@ function tampilkanProduk(produk){
     );
 
 
-  if(produk.length===0){
+  if(
+    !produk.length
+  ){
 
     container.innerHTML =
       '<div class="empty">Belum ada data.</div>';
@@ -1814,39 +2706,46 @@ function tampilkanProduk(produk){
 
           return `
 
-            <div class="top-item">
+            <div class="rank-item">
 
-              <div class="top-left">
+              <div class="rank-number">
+                ${index+1}
+              </div>
 
-                <div class="rank">
-                  ${index+1}
+              <div class="rank-info">
+
+                <div class="rank-name">
+                  ${escapeHtml(
+                    item.nama || '-'
+                  )}
                 </div>
 
-                <div class="top-name">
+                <div class="rank-detail">
 
-                  <strong>
-                    ${escapeHtml(
-                      item.nama || '-'
-                    )}
-                  </strong>
+                  ${escapeHtml(
+                    item.kode || ''
+                  )}
 
-                  <small>
-                    ${escapeHtml(
-                      item.kode || ''
-                    )}
-                    ·
-                    ${angka(item.qty)}
-                    ${escapeHtml(
-                      item.satuan || 'PCS'
-                    )}
-                  </small>
+                  ·
+
+                  ${angka(
+                    item.qty
+                  )}
+
+                  ${escapeHtml(
+                    item.satuan || 'PCS'
+                  )}
 
                 </div>
 
               </div>
 
-              <div class="top-value">
-                ${rupiah(item.omzet)}
+              <div class="rank-value">
+
+                ${rupiah(
+                  item.omzet
+                )}
+
               </div>
 
             </div>
@@ -1860,11 +2759,11 @@ function tampilkanProduk(produk){
 }
 
 
-/* =====================================================
-   BRAND
-===================================================== */
+/* =========================================================
+   TOP BRAND
+========================================================= */
 
-function tampilkanBrand(brand){
+function tampilkanTopBrand(brand){
 
   const container =
     document.getElementById(
@@ -1872,7 +2771,9 @@ function tampilkanBrand(brand){
     );
 
 
-  if(brand.length===0){
+  if(
+    !brand.length
+  ){
 
     container.innerHTML =
       '<div class="empty">Belum ada data brand.</div>';
@@ -1890,33 +2791,40 @@ function tampilkanBrand(brand){
 
           return `
 
-            <div class="top-item">
+            <div class="rank-item">
 
-              <div class="top-left">
+              <div class="rank-number">
+                ${index+1}
+              </div>
 
-                <div class="rank">
-                  ${index+1}
+              <div class="rank-info">
+
+                <div class="rank-name">
+
+                  Brand ID
+                  ${escapeHtml(
+                    item.brandId || '-'
+                  )}
+
                 </div>
 
-                <div class="top-name">
+                <div class="rank-detail">
 
-                  <strong>
-                    Brand ID
-                    ${escapeHtml(
-                      item.brandId || '-'
-                    )}
-                  </strong>
-
-                  <small>
-                    ${angka(item.qty)} qty
-                  </small>
+                  ${angka(
+                    item.qty
+                  )}
+                  Qty
 
                 </div>
 
               </div>
 
-              <div class="top-value">
-                ${rupiah(item.omzet)}
+              <div class="rank-value">
+
+                ${rupiah(
+                  item.omzet
+                )}
+
               </div>
 
             </div>
@@ -1930,31 +2838,24 @@ function tampilkanBrand(brand){
 }
 
 
-/* =====================================================
-   TRANSAKSI
-===================================================== */
+/* =========================================================
+   TABLE PRODUK
+========================================================= */
 
-function tampilkanTransaksi(transaksi){
+function tampilkanProdukTable(produk){
 
-  const body =
+  const tbody =
     document.getElementById(
-      'transactionBody'
-    );
-
-  const info =
-    document.getElementById(
-      'transactionInfo'
+      'produkTableBody'
     );
 
 
-  info.textContent =
-    transaksi.length +
-    ' transaksi ditemukan';
+  if(
+    !produk.length
+  ){
 
-
-  if(transaksi.length===0){
-
-    body.innerHTML = `
+    tbody.innerHTML =
+      `
 
       <tr>
 
@@ -1962,21 +2863,21 @@ function tampilkanTransaksi(transaksi){
           colspan="6"
           class="empty">
 
-          Belum ada data transaksi.
+          Belum ada data.
 
         </td>
 
       </tr>
 
-    `;
+      `;
 
     return;
 
   }
 
 
-  body.innerHTML =
-    transaksi
+  tbody.innerHTML =
+    produk
       .map(
         function(item,index){
 
@@ -1991,35 +2892,35 @@ function tampilkanTransaksi(transaksi){
               <td>
                 <strong>
                   ${escapeHtml(
-                    item.nomor || '-'
+                    item.nama || '-'
                   )}
                 </strong>
               </td>
 
               <td>
                 ${escapeHtml(
-                  item.tanggal || '-'
+                  item.kode || '-'
                 )}
               </td>
 
               <td>
                 ${escapeHtml(
-                  item.kasir || '-'
+                  item.satuan || 'PCS'
                 )}
               </td>
 
-              <td>
-
-                <span class="status-approved">
-                  ${escapeHtml(
-                    item.status || '-'
-                  )}
-                </span>
-
+              <td class="text-right">
+                ${angka(
+                  item.qty
+                )}
               </td>
 
-              <td class="amount">
-                ${rupiah(item.total)}
+              <td class="text-right">
+                <strong>
+                  ${rupiah(
+                    item.omzet
+                  )}
+                </strong>
               </td>
 
             </tr>
@@ -2033,29 +2934,278 @@ function tampilkanTransaksi(transaksi){
 }
 
 
-/* =====================================================
-   ENTER LOGIN
-===================================================== */
+/* =========================================================
+   TABLE TRANSAKSI
+========================================================= */
 
-document.getElementById(
-  'password'
-).addEventListener(
-  'keydown',
-  function(event){
+function tampilkanTransaksiTable(
+  transaksi
+){
 
-    if(event.key==='Enter'){
+  const tbody =
+    document.getElementById(
+      'transaksiTableBody'
+    );
 
-      login();
 
-    }
+  if(
+    !transaksi.length
+  ){
+
+    tbody.innerHTML =
+      `
+
+      <tr>
+
+        <td
+          colspan="6"
+          class="empty">
+
+          Belum ada transaksi.
+
+        </td>
+
+      </tr>
+
+      `;
+
+    return;
+
+  }
+
+
+  tbody.innerHTML =
+    transaksi
+      .map(
+        function(item,index){
+
+          return `
+
+            <tr>
+
+              <td>
+                ${index+1}
+              </td>
+
+              <td>
+
+                <strong>
+                  ${escapeHtml(
+                    item.nomor || '-'
+                  )}
+                </strong>
+
+              </td>
+
+              <td>
+                ${formatTanggalIndonesia(
+                  item.tanggal
+                )}
+              </td>
+
+              <td>
+                ${escapeHtml(
+                  item.kasir || '-'
+                )}
+              </td>
+
+              <td>
+
+                <span class="status-approved">
+                  ${escapeHtml(
+                    item.status || 'APPROVED'
+                  )}
+                </span>
+
+              </td>
+
+              <td class="text-right">
+
+                <strong>
+                  ${rupiah(
+                    item.total
+                  )}
+                </strong>
+
+              </td>
+
+            </tr>
+
+          `;
+
+        }
+      )
+      .join('');
+
+}
+
+
+/* =========================================================
+   FORMAT GRAFIK
+========================================================= */
+
+function formatChartRupiah(value){
+
+  value =
+    Number(value || 0);
+
+
+  if(
+    value >= 1000000000
+  ){
+
+    return (
+      'Rp' +
+      (
+        value /
+        1000000000
+      ).toFixed(1) +
+      'M'
+    );
+
+  }
+
+
+  if(
+    value >= 1000000
+  ){
+
+    return (
+      'Rp' +
+      (
+        value /
+        1000000
+      ).toFixed(1) +
+      'Jt'
+    );
+
+  }
+
+
+  if(
+    value >= 1000
+  ){
+
+    return (
+      'Rp' +
+      (
+        value /
+        1000
+      ).toFixed(0) +
+      'Rb'
+    );
+
+  }
+
+
+  return (
+    'Rp' +
+    Math.round(value)
+  );
+
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+function escapeHtml(value){
+
+  return String(
+    value ?? ''
+  )
+    .replace(
+      /&/g,
+      '&amp;'
+    )
+    .replace(
+      /</g,
+      '&lt;'
+    )
+    .replace(
+      />/g,
+      '&gt;'
+    )
+    .replace(
+      /"/g,
+      '&quot;'
+    )
+    .replace(
+      /'/g,
+      '&#039;'
+    );
+
+}
+
+
+/* =========================================================
+   RESIZE CHART
+========================================================= */
+
+let resizeTimer;
+
+
+window.addEventListener(
+  'resize',
+  function(){
+
+    clearTimeout(
+      resizeTimer
+    );
+
+
+    resizeTimer =
+      setTimeout(
+        function(){
+
+          if(
+            dataPenjualanTerakhir
+          ){
+
+            buatGrafikOmzet(
+              dataPenjualanTerakhir.harian || []
+            );
+
+            buatGrafikAktivitas(
+              dataPenjualanTerakhir.harian || []
+            );
+
+          }
+
+        },
+        200
+      );
 
   }
 );
 
 
-/* =====================================================
+/* =========================================================
+   ENTER LOGIN
+========================================================= */
+
+document
+  .getElementById('password')
+  .addEventListener(
+    'keydown',
+    function(event){
+
+      if(
+        event.key === 'Enter'
+      ){
+
+        login();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
    START
-===================================================== */
+========================================================= */
 
 document.addEventListener(
   'DOMContentLoaded',
@@ -2065,16 +3215,16 @@ document.addEventListener(
       tanggalHariIni();
 
 
-    document.getElementById(
-      'tanggalMulai'
-    ).value =
-      hariIni;
+    document
+      .getElementById('tanggalMulai')
+      .value =
+        hariIni;
 
 
-    document.getElementById(
-      'tanggalAkhir'
-    ).value =
-      hariIni;
+    document
+      .getElementById('tanggalAkhir')
+      .value =
+        hariIni;
 
 
     if(
