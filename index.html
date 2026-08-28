@@ -834,6 +834,7 @@ loginForm.addEventListener(
 
     event.preventDefault();
 
+
     const username =
       document
         .getElementById('username')
@@ -846,12 +847,13 @@ loginForm.addEventListener(
         .value;
 
 
-    loginError.style.display = 'none';
+    loginError.style.display =
+      'none';
 
 
-    /* ================================
-       VALIDASI INPUT
-    ================================= */
+    /* =====================================
+       VALIDASI
+    ====================================== */
 
     if (!username || !password) {
 
@@ -866,9 +868,9 @@ loginForm.addEventListener(
     }
 
 
-    /* ================================
-       AMBIL API URL
-    ================================= */
+    /* =====================================
+       API
+    ====================================== */
 
     const apiUrl =
       CONFIG.API_URL;
@@ -887,42 +889,52 @@ loginForm.addEventListener(
     }
 
 
-    /* ================================
-       KIRIM LOGIN KE BACKEND
-    ================================= */
+    /* =====================================
+       DATA LOGIN
+    ====================================== */
+
+    const formData =
+      new URLSearchParams();
+
+    formData.append(
+      'action',
+      'login'
+    );
+
+    formData.append(
+      'username',
+      username
+    );
+
+    formData.append(
+      'password',
+      password
+    );
+
+
+    /* =====================================
+       KIRIM KE BACKEND
+    ====================================== */
 
     try {
 
       const response =
-        await fetch(apiUrl, {
-
-          method: 'POST',
-
-          headers: {
-            'Content-Type':
-              'application/json'
-          },
-
-          body: JSON.stringify({
-
-            action: 'login',
-
-            username: username,
-
-            password: password
-
-          })
-
-        });
+        await fetch(
+          apiUrl,
+          {
+            method: 'POST',
+            body: formData
+          }
+        );
 
 
       const result =
         await response.json();
 
 
-      /* ================================
-         LOGIN BERHASIL
-      ================================= */
+      /* ===================================
+         BERHASIL
+      ==================================== */
 
       if (result.success) {
 
@@ -938,9 +950,9 @@ loginForm.addEventListener(
       }
 
 
-      /* ================================
-         LOGIN GAGAL
-      ================================= */
+      /* ===================================
+         GAGAL
+      ==================================== */
 
       else {
 
@@ -956,13 +968,16 @@ loginForm.addEventListener(
     }
 
 
-    /* ================================
-       ERROR KONEKSI
-    ================================= */
+    /* =====================================
+       ERROR SERVER / KONEKSI
+    ====================================== */
 
     catch (error) {
 
-      console.error(error);
+      console.error(
+        'LOGIN ERROR:',
+        error
+      );
 
       loginError.textContent =
         'Tidak dapat terhubung ke server.';
