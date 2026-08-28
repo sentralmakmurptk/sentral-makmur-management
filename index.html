@@ -799,16 +799,11 @@
   </div>
 
 
-  <script>
+<script>
 
 /* =========================================
    SENTRAL MAKMUR MANAGEMENT
-   LOGIN BACKEND
-========================================= */
-
-
-/* =========================================
-   ELEMENT
+   LOGIN + SESSION
 ========================================= */
 
 const loginForm =
@@ -825,6 +820,17 @@ const loginError =
 
 
 /* =========================================
+   CONFIG
+========================================= */
+
+const apiUrl =
+  CONFIG.API_URL;
+
+const SESSION_KEY =
+  CONFIG.LOGIN.SESSION_KEY;
+
+
+/* =========================================
    LOGIN
 ========================================= */
 
@@ -833,7 +839,6 @@ loginForm.addEventListener(
   async function(event) {
 
     event.preventDefault();
-
 
     const username =
       document
@@ -851,10 +856,6 @@ loginForm.addEventListener(
       'none';
 
 
-    /* =====================================
-       VALIDASI
-    ====================================== */
-
     if (!username || !password) {
 
       loginError.textContent =
@@ -866,14 +867,6 @@ loginForm.addEventListener(
       return;
 
     }
-
-
-    /* =====================================
-       API
-    ====================================== */
-
-    const apiUrl =
-      CONFIG.API_URL;
 
 
     if (!apiUrl) {
@@ -888,10 +881,6 @@ loginForm.addEventListener(
 
     }
 
-
-    /* =====================================
-       DATA LOGIN
-    ====================================== */
 
     const formData =
       new URLSearchParams();
@@ -912,10 +901,6 @@ loginForm.addEventListener(
     );
 
 
-    /* =====================================
-       KIRIM KE BACKEND
-    ====================================== */
-
     try {
 
       const response =
@@ -932,11 +917,13 @@ loginForm.addEventListener(
         await response.json();
 
 
-      /* ===================================
-         BERHASIL
-      ==================================== */
-
       if (result.success) {
+
+        localStorage.setItem(
+          SESSION_KEY,
+          result.sessionToken
+        );
+
 
         loginPage.style.display =
           'none';
@@ -948,11 +935,6 @@ loginForm.addEventListener(
           'none';
 
       }
-
-
-      /* ===================================
-         GAGAL
-      ==================================== */
 
       else {
 
@@ -966,11 +948,6 @@ loginForm.addEventListener(
       }
 
     }
-
-
-    /* =====================================
-       ERROR SERVER / KONEKSI
-    ====================================== */
 
     catch (error) {
 
@@ -992,10 +969,142 @@ loginForm.addEventListener(
 
 
 /* =========================================
+   CHECK SESSION
+========================================= */
+
+async function checkSession() {
+
+  const sessionToken =
+    localStorage.getItem(
+      SESSION_KEY
+    );
+
+
+  if (!sessionToken) {
+
+    return;
+
+  }
+
+
+  const formData =
+    new URLSearchParams();
+
+  formData.append(
+    'action',
+    'checkSession'
+  );
+
+  formData.append(
+    'sessionToken',
+    sessionToken
+  );
+
+
+  try {
+
+    const response =
+      await fetch(
+        apiUrl,
+        {
+          method: 'POST',
+          body: formData
+        }
+      );
+
+
+    const result =
+      await response.json();
+
+
+    if (result.success) {
+
+      loginPage.style.display =
+        'none';
+
+      dashboard.style.display =
+        'block';
+
+    }
+
+    else {
+
+      localStorage.removeItem(
+        SESSION_KEY
+      );
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.error(
+      'SESSION ERROR:',
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================
    LOGOUT
 ========================================= */
 
-function logout() {
+async function logout() {
+
+  const sessionToken =
+    localStorage.getItem(
+      SESSION_KEY
+    );
+
+
+  if (sessionToken) {
+
+    const formData =
+      new URLSearchParams();
+
+    formData.append(
+      'action',
+      'logout'
+    );
+
+    formData.append(
+      'sessionToken',
+      sessionToken
+    );
+
+
+    try {
+
+      await fetch(
+        apiUrl,
+        {
+          method: 'POST',
+          body: formData
+        }
+      );
+
+    }
+
+    catch (error) {
+
+      console.error(
+        'LOGOUT ERROR:',
+        error
+      );
+
+    }
+
+  }
+
+
+  localStorage.removeItem(
+    SESSION_KEY
+  );
+
 
   dashboard.style.display =
     'none';
@@ -1008,6 +1117,13 @@ function logout() {
     .value = '';
 
 }
+
+
+/* =========================================
+   CEK SESSION SAAT HALAMAN DIBUKA
+========================================= */
+
+checkSession();
 
 </script>
 
