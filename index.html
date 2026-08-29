@@ -1,11 +1,11 @@
+```html
 <!DOCTYPE html>
-
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SENTRAL MAKMUR MANAGEMENT - Dashboard Penjualan</title>
+  <title>SENTRAL MAKMUR MANAGEMENT</title>
 
   <style>
     * {
@@ -20,10 +20,14 @@
       color: #1f2937;
     }
 
+    /* =====================================================
+       HEADER UTAMA
+       ===================================================== */
+
     .header {
       background: #c40000;
       color: white;
-      padding: 22px 28px;
+      padding: 20px 28px;
       box-shadow: 0 3px 12px rgba(0,0,0,.15);
     }
 
@@ -40,15 +44,96 @@
 
     .subtitle {
       margin-top: 5px;
-      font-size: 14px;
+      font-size: 13px;
       opacity: .9;
     }
+
+    /* =====================================================
+       NAVIGASI 6 MENU
+       ===================================================== */
+
+    .menu-bar {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .menu-inner {
+      max-width: 1500px;
+      margin: auto;
+      padding: 10px 24px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+
+    .menu-btn {
+      height: 52px;
+      border: 1px solid #e5e7eb;
+      background: #f8fafc;
+      color: #374151;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+      transition: .2s;
+    }
+
+    .menu-btn:hover {
+      background: #f1f5f9;
+      transform: translateY(-1px);
+    }
+
+    .menu-btn.active {
+      background: #c40000;
+      color: white;
+      border-color: #c40000;
+      box-shadow: 0 3px 8px rgba(196,0,0,.25);
+    }
+
+    .menu-number {
+      display: block;
+      font-size: 10px;
+      opacity: .7;
+      margin-bottom: 3px;
+    }
+
+    /* =====================================================
+       CONTAINER
+       ===================================================== */
 
     .container {
       max-width: 1500px;
       margin: auto;
       padding: 24px;
     }
+
+    /* =====================================================
+       PAGE TITLE
+       ===================================================== */
+
+    .page-header {
+      margin-bottom: 18px;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .page-description {
+      margin-top: 5px;
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    /* =====================================================
+       TOOLBAR
+       ===================================================== */
 
     .toolbar {
       background: white;
@@ -111,6 +196,19 @@
       font-weight: 700;
     }
 
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 13px;
+      border-radius: 9px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* =====================================================
+       CARDS
+       ===================================================== */
+
     .cards {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -144,6 +242,10 @@
       color: #9ca3af;
     }
 
+    /* =====================================================
+       PANEL
+       ===================================================== */
+
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -174,6 +276,10 @@
       width: 100% !important;
       height: 100% !important;
     }
+
+    /* =====================================================
+       TABLE
+       ===================================================== */
 
     .table-wrap {
       overflow-x: auto;
@@ -211,6 +317,39 @@
       padding: 30px;
     }
 
+    /* =====================================================
+       MENU PLACEHOLDER
+       ===================================================== */
+
+    .coming-soon {
+      background: white;
+      border-radius: 16px;
+      padding: 70px 30px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    }
+
+    .coming-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .coming-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .coming-text {
+      margin-top: 8px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
     .footer {
       text-align: center;
       padding: 25px;
@@ -218,16 +357,12 @@
       color: #9ca3af;
     }
 
-    .error {
-      background: #fee2e2;
-      color: #991b1b;
-      padding: 13px;
-      border-radius: 9px;
-      margin-top: 12px;
-      display: none;
-    }
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
 
     @media (max-width: 1000px) {
+
       .cards {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -239,9 +374,14 @@
       .toolbar-grid {
         grid-template-columns: 1fr 1fr;
       }
+
+      .menu-inner {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     @media (max-width: 600px) {
+
       .header {
         padding: 18px;
       }
@@ -250,8 +390,31 @@
         font-size: 20px;
       }
 
+      .subtitle {
+        font-size: 12px;
+      }
+
+      .menu-inner {
+        padding: 8px 10px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+
+      .menu-btn {
+        height: 48px;
+        font-size: 11px;
+      }
+
+      .menu-number {
+        font-size: 9px;
+      }
+
       .container {
         padding: 14px;
+      }
+
+      .page-title {
+        font-size: 20px;
       }
 
       .toolbar-grid {
@@ -280,225 +443,627 @@
       }
     }
   </style>
-
 </head>
 
 <body>
 
+<!-- =======================================================
+     HEADER UTAMA
+     ======================================================= -->
+
 <header class="header">
+
   <div class="header-inner">
-    <div class="brand">SENTRAL MAKMUR MANAGEMENT</div>
-    <div class="subtitle">Dashboard Penjualan • Accurate Online</div>
+
+    <div class="brand">
+      SENTRAL MAKMUR MANAGEMENT
+    </div>
+
+    <div class="subtitle">
+      Sistem Manajemen Sentral Makmur Sejahtera
+    </div>
+
   </div>
+
 </header>
+
+
+<!-- =======================================================
+     6 MENU UTAMA
+     ======================================================= -->
+
+<nav class="menu-bar">
+
+  <div class="menu-inner">
+
+    <button
+      class="menu-btn active"
+      id="menu1"
+      onclick="bukaMenu(1)"
+    >
+      <span class="menu-number">MENU 1</span>
+      📊 PENJUALAN
+    </button>
+
+    <button
+      class="menu-btn"
+      id="menu2"
+      onclick="bukaMenu(2)"
+    >
+      <span class="menu-number">MENU 2</span>
+      📦 MENU 2
+    </button>
+
+    <button
+      class="menu-btn"
+      id="menu3"
+      onclick="bukaMenu(3)"
+    >
+      <span class="menu-number">MENU 3</span>
+      💰 MENU 3
+    </button>
+
+    <button
+      class="menu-btn"
+      id="menu4"
+      onclick="bukaMenu(4)"
+    >
+      <span class="menu-number">MENU 4</span>
+      👥 MENU 4
+    </button>
+
+    <button
+      class="menu-btn"
+      id="menu5"
+      onclick="bukaMenu(5)"
+    >
+      <span class="menu-number">MENU 5</span>
+      📋 MENU 5
+    </button>
+
+    <button
+      class="menu-btn"
+      id="menu6"
+      onclick="bukaMenu(6)"
+    >
+      <span class="menu-number">MENU 6</span>
+      ⚙️ MENU 6
+    </button>
+
+  </div>
+
+</nav>
+
+
+<!-- =======================================================
+     MAIN
+     ======================================================= -->
 
 <main class="container">
 
-  <section class="toolbar">
+  <!-- =====================================================
+       MENU 1 — PENJUALAN
+       ===================================================== -->
 
-```
-<div class="toolbar-grid">
+  <section id="halamanPenjualan">
 
-  <div class="field">
-    <label>TANGGAL MULAI</label>
-    <input type="date" id="tanggalMulai">
-  </div>
+    <div class="page-header">
 
-  <div class="field">
-    <label>TANGGAL AKHIR</label>
-    <input type="date" id="tanggalAkhir">
-  </div>
+      <div class="page-title">
+        📊 Penjualan
+      </div>
 
-  <button class="btn-primary" onclick="loadDashboard()">
-    🔄 Tampilkan
-  </button>
+      <div class="page-description">
+        Data penjualan dari Accurate Online
+      </div>
 
-  <button class="btn-secondary" onclick="setHariIni()">
-    Hari Ini
-  </button>
+    </div>
 
-  <button class="btn-secondary" onclick="setBulanIni()">
-    Bulan Ini
-  </button>
 
-</div>
+    <!-- FILTER -->
 
-<div id="status" class="status"></div>
-<div id="error" class="error"></div>
-```
+    <section class="toolbar">
+
+      <div class="toolbar-grid">
+
+        <div class="field">
+
+          <label>TANGGAL MULAI</label>
+
+          <input
+            type="date"
+            id="tanggalMulai"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>TANGGAL AKHIR</label>
+
+          <input
+            type="date"
+            id="tanggalAkhir"
+          >
+
+        </div>
+
+
+        <button
+          class="btn-primary"
+          onclick="loadDashboard()"
+        >
+          🔄 Tampilkan
+        </button>
+
+
+        <button
+          class="btn-secondary"
+          onclick="setHariIni()"
+        >
+          Hari Ini
+        </button>
+
+
+        <button
+          class="btn-secondary"
+          onclick="setBulanIni()"
+        >
+          Bulan Ini
+        </button>
+
+      </div>
+
+
+      <div id="status" class="status"></div>
+
+      <div id="error" class="error"></div>
+
+    </section>
+
+
+    <!-- RINGKASAN -->
+
+    <section class="cards">
+
+      <div class="card">
+
+        <div class="card-label">
+          OMZET
+        </div>
+
+        <div
+          class="card-value"
+          id="omzet"
+        >
+          Rp0
+        </div>
+
+        <div class="card-small">
+          Total penjualan
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-label">
+          TRANSAKSI
+        </div>
+
+        <div
+          class="card-value"
+          id="transaksi"
+        >
+          0
+        </div>
+
+        <div class="card-small">
+          Invoice approved
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-label">
+          TOTAL QTY
+        </div>
+
+        <div
+          class="card-value"
+          id="qty"
+        >
+          0
+        </div>
+
+        <div class="card-small">
+          Barang terjual
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-label">
+          PRODUK
+        </div>
+
+        <div
+          class="card-value"
+          id="produk"
+        >
+          0
+        </div>
+
+        <div class="card-small">
+          Produk terjual
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- GRAFIK -->
+
+    <section
+      class="panel"
+      style="margin-bottom:20px;"
+    >
+
+      <div class="panel-title">
+        📈 Grafik Penjualan Harian
+      </div>
+
+      <div class="chart-wrap">
+
+        <canvas id="salesChart"></canvas>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRODUK / BRAND -->
+
+    <section class="grid-2">
+
+      <div class="panel">
+
+        <div class="panel-title">
+          🏆 Produk Terlaris
+        </div>
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>#</th>
+                <th>Produk</th>
+                <th class="number">Qty</th>
+                <th class="number">Omzet</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="produkTable"></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+      <div class="panel">
+
+        <div class="panel-title">
+          🏷️ Merek Terlaris
+        </div>
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>#</th>
+                <th>Merek</th>
+                <th class="number">Qty</th>
+                <th class="number">Omzet</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="brandTable"></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TRANSAKSI -->
+
+    <section class="panel">
+
+      <div class="panel-title">
+        🧾 Detail Transaksi
+      </div>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Tanggal</th>
+              <th>No. Invoice</th>
+              <th>Customer</th>
+              <th>Kasir</th>
+              <th>Status</th>
+              <th class="number">Total</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="transaksiTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
 
   </section>
 
-  <!-- RINGKASAN -->
 
-  <section class="cards">
+  <!-- =====================================================
+       MENU 2
+       ===================================================== -->
 
-```
-<div class="card">
-  <div class="card-label">OMZET</div>
-  <div class="card-value" id="omzet">Rp0</div>
-  <div class="card-small">Total penjualan</div>
-</div>
+  <section
+    id="halamanMenu2"
+    style="display:none;"
+  >
 
-<div class="card">
-  <div class="card-label">TRANSAKSI</div>
-  <div class="card-value" id="transaksi">0</div>
-  <div class="card-small">Invoice approved</div>
-</div>
+    <div class="page-header">
 
-<div class="card">
-  <div class="card-label">TOTAL QTY</div>
-  <div class="card-value" id="qty">0</div>
-  <div class="card-small">Barang terjual</div>
-</div>
+      <div class="page-title">
+        📦 Menu 2
+      </div>
 
-<div class="card">
-  <div class="card-label">PRODUK</div>
-  <div class="card-value" id="produk">0</div>
-  <div class="card-small">Produk terjual</div>
-</div>
-```
+      <div class="page-description">
+        Modul berikutnya dalam SENTRAL MAKMUR MANAGEMENT
+      </div>
 
-  </section>
+    </div>
 
-  <!-- GRAFIK -->
+    <div class="coming-soon">
 
-  <section class="panel" style="margin-bottom:20px;">
+      <div class="coming-icon">
+        📦
+      </div>
 
-```
-<div class="panel-title">
-  📈 Grafik Penjualan Harian
-</div>
+      <div class="coming-title">
+        MENU 2
+      </div>
 
-<div class="chart-wrap">
-  <canvas id="salesChart"></canvas>
-</div>
-```
+      <div class="coming-text">
+        Modul akan kita bangun setelah Menu 1 selesai.
+      </div>
+
+    </div>
 
   </section>
 
-  <!-- TOP PRODUK / BRAND -->
 
-  <section class="grid-2">
+  <!-- =====================================================
+       MENU 3
+       ===================================================== -->
 
-```
-<div class="panel">
+  <section
+    id="halamanMenu3"
+    style="display:none;"
+  >
 
-  <div class="panel-title">
-    🏆 Produk Terlaris
-  </div>
+    <div class="coming-soon">
 
-  <div class="table-wrap">
+      <div class="coming-icon">
+        💰
+      </div>
 
-    <table>
+      <div class="coming-title">
+        MENU 3
+      </div>
 
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Produk</th>
-          <th class="number">Qty</th>
-          <th class="number">Omzet</th>
-        </tr>
-      </thead>
+      <div class="coming-text">
+        Modul akan kita bangun setelah Menu 1 selesai.
+      </div>
 
-      <tbody id="produkTable"></tbody>
-
-    </table>
-
-  </div>
-
-</div>
-
-
-<div class="panel">
-
-  <div class="panel-title">
-    🏷️ Merek Terlaris
-  </div>
-
-  <div class="table-wrap">
-
-    <table>
-
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Merek</th>
-          <th class="number">Qty</th>
-          <th class="number">Omzet</th>
-        </tr>
-      </thead>
-
-      <tbody id="brandTable"></tbody>
-
-    </table>
-
-  </div>
-
-</div>
-```
+    </div>
 
   </section>
 
-  <!-- TRANSAKSI -->
 
-  <section class="panel">
+  <!-- =====================================================
+       MENU 4
+       ===================================================== -->
 
-```
-<div class="panel-title">
-  🧾 Detail Transaksi
-</div>
+  <section
+    id="halamanMenu4"
+    style="display:none;"
+  >
 
-<div class="table-wrap">
+    <div class="coming-soon">
 
-  <table>
+      <div class="coming-icon">
+        👥
+      </div>
 
-    <thead>
-      <tr>
-        <th>Tanggal</th>
-        <th>No. Invoice</th>
-        <th>Customer</th>
-        <th>Kasir</th>
-        <th>Status</th>
-        <th class="number">Total</th>
-      </tr>
-    </thead>
+      <div class="coming-title">
+        MENU 4
+      </div>
 
-    <tbody id="transaksiTable"></tbody>
+      <div class="coming-text">
+        Modul akan kita bangun setelah Menu 1 selesai.
+      </div>
 
-  </table>
+    </div>
 
-</div>
-```
+  </section>
+
+
+  <!-- =====================================================
+       MENU 5
+       ===================================================== -->
+
+  <section
+    id="halamanMenu5"
+    style="display:none;"
+  >
+
+    <div class="coming-soon">
+
+      <div class="coming-icon">
+        📋
+      </div>
+
+      <div class="coming-title">
+        MENU 5
+      </div>
+
+      <div class="coming-text">
+        Modul akan kita bangun setelah Menu 1 selesai.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       MENU 6
+       ===================================================== -->
+
+  <section
+    id="halamanMenu6"
+    style="display:none;"
+  >
+
+    <div class="coming-soon">
+
+      <div class="coming-icon">
+        ⚙️
+      </div>
+
+      <div class="coming-title">
+        MENU 6
+      </div>
+
+      <div class="coming-text">
+        Modul akan kita bangun setelah Menu 1 selesai.
+      </div>
+
+    </div>
 
   </section>
 
 </main>
 
-<div class="footer">
-  SENTRAL MAKMUR MANAGEMENT • Dashboard Penjualan
-</div>
+
+<footer class="footer">
+
+  SENTRAL MAKMUR MANAGEMENT
+
+</footer>
+
 
 <script>
 
-  /* ======================================================
-     CONFIG
-     ====================================================== */
+  /* =====================================================
+     CONFIG — API V21
+     ===================================================== */
 
   const API_URL =
     'https://script.google.com/macros/s/AKfycbz3dKH-1fh3c_cnnZm6xcJFW6zGNnWTnZA403FFc3FDorL9xz_VHim7RL8DTMqxxG5urA/exec';
 
 
-  /* ======================================================
+  /* =====================================================
      STATE
-     ====================================================== */
+     ===================================================== */
 
   let salesChart = null;
 
 
-  /* ======================================================
+  /* =====================================================
+     NAVIGASI MENU
+     ===================================================== */
+
+  function bukaMenu(nomor) {
+
+    for (
+      let i = 1;
+      i <= 6;
+      i++
+    ) {
+
+      const halaman =
+        document.getElementById(
+          i === 1
+            ? 'halamanPenjualan'
+            : 'halamanMenu' + i
+        );
+
+      const tombol =
+        document.getElementById(
+          'menu' + i
+        );
+
+      if (halaman) {
+
+        halaman.style.display =
+          i === nomor
+            ? 'block'
+            : 'none';
+
+      }
+
+      if (tombol) {
+
+        tombol.classList.toggle(
+          'active',
+          i === nomor
+        );
+
+      }
+
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
+  }
+
+
+  /* =====================================================
      INIT
-     ====================================================== */
+     ===================================================== */
 
   document.addEventListener(
     'DOMContentLoaded',
@@ -512,9 +1077,9 @@
   );
 
 
-  /* ======================================================
+  /* =====================================================
      TANGGAL
-     ====================================================== */
+     ===================================================== */
 
   function localISODate(date) {
 
@@ -531,7 +1096,13 @@
         date.getDate()
       ).padStart(2, '0');
 
-    return y + '-' + m + '-' + d;
+    return (
+      y +
+      '-' +
+      m +
+      '-' +
+      d
+    );
 
   }
 
@@ -592,9 +1163,9 @@
   }
 
 
-  /* ======================================================
-     LOAD DASHBOARD
-     ====================================================== */
+  /* =====================================================
+     LOAD DASHBOARD V21
+     ===================================================== */
 
   async function loadDashboard() {
 
@@ -679,9 +1250,7 @@
       }
 
 
-      renderDashboard(
-        data
-      );
+      renderDashboard(data);
 
 
       document.getElementById(
@@ -699,9 +1268,7 @@
 
     catch (error) {
 
-      console.error(
-        error
-      );
+      console.error(error);
 
       showError(
         'Gagal mengambil data penjualan: ' +
@@ -719,13 +1286,11 @@
   }
 
 
-  /* ======================================================
-     RENDER
-     ====================================================== */
+  /* =====================================================
+     RENDER DASHBOARD
+     ===================================================== */
 
-  function renderDashboard(
-    data
-  ) {
+  function renderDashboard(data) {
 
     const ringkasan =
       data.ringkasan ||
@@ -786,13 +1351,11 @@
   }
 
 
-  /* ======================================================
+  /* =====================================================
      CHART
-     ====================================================== */
+     ===================================================== */
 
-  function renderChart(
-    harian
-  ) {
+  function renderChart(harian) {
 
     const canvas =
       document.getElementById(
@@ -800,9 +1363,7 @@
       );
 
     const ctx =
-      canvas.getContext(
-        '2d'
-      );
+      canvas.getContext('2d');
 
 
     if (salesChart) {
@@ -846,9 +1407,9 @@
   }
 
 
-  /* ======================================================
+  /* =====================================================
      SIMPLE CHART
-     ====================================================== */
+     ===================================================== */
 
   class SimpleChart {
 
@@ -858,14 +1419,9 @@
       values
     ) {
 
-      this.ctx =
-        ctx;
-
-      this.labels =
-        labels;
-
-      this.values =
-        values;
+      this.ctx = ctx;
+      this.labels = labels;
+      this.values = values;
 
       this.draw();
 
@@ -906,17 +1462,10 @@
         rect.height;
 
 
-      const paddingLeft =
-        65;
-
-      const paddingRight =
-        20;
-
-      const paddingTop =
-        20;
-
-      const paddingBottom =
-        45;
+      const paddingLeft = 65;
+      const paddingRight = 20;
+      const paddingTop = 20;
+      const paddingBottom = 45;
 
 
       const chartWidth =
@@ -989,9 +1538,7 @@
           '#6b7280';
 
         this.ctx.fillText(
-          formatShortRupiah(
-            value
-          ),
+          formatShortRupiah(value),
           paddingLeft - 8,
           y + 4
         );
@@ -1106,6 +1653,7 @@
             Math.PI * 2
           );
 
+
           this.ctx.fillStyle =
             '#c40000';
 
@@ -1138,13 +1686,11 @@
   }
 
 
-  /* ======================================================
+  /* =====================================================
      PRODUK
-     ====================================================== */
+     ===================================================== */
 
-  function renderProduk(
-    data
-  ) {
+  function renderProduk(data) {
 
     const tbody =
       document.getElementById(
@@ -1152,15 +1698,11 @@
       );
 
 
-    tbody.innerHTML =
-      '';
+    tbody.innerHTML = '';
 
 
     const rows =
-      data.slice(
-        0,
-        10
-      );
+      data.slice(0, 10);
 
 
     if (
@@ -1179,9 +1721,7 @@
       function(item, index) {
 
         const tr =
-          document.createElement(
-            'tr'
-          );
+          document.createElement('tr');
 
 
         tr.innerHTML =
@@ -1192,8 +1732,7 @@
 
           '<td>' +
           escapeHTML(
-            item.nama ||
-            '-'
+            item.nama || '-'
           ) +
           '</td>' +
 
@@ -1203,8 +1742,7 @@
           ) +
           ' ' +
           escapeHTML(
-            item.satuan ||
-            ''
+            item.satuan || ''
           ) +
           '</td>' +
 
@@ -1215,9 +1753,7 @@
           '</td>';
 
 
-        tbody.appendChild(
-          tr
-        );
+        tbody.appendChild(tr);
 
       }
     );
@@ -1225,13 +1761,11 @@
   }
 
 
-  /* ======================================================
+  /* =====================================================
      BRAND
-     ====================================================== */
+     ===================================================== */
 
-  function renderBrand(
-    data
-  ) {
+  function renderBrand(data) {
 
     const tbody =
       document.getElementById(
@@ -1239,15 +1773,11 @@
       );
 
 
-    tbody.innerHTML =
-      '';
+    tbody.innerHTML = '';
 
 
     const rows =
-      data.slice(
-        0,
-        10
-      );
+      data.slice(0, 10);
 
 
     if (
@@ -1266,9 +1796,7 @@
       function(item, index) {
 
         const tr =
-          document.createElement(
-            'tr'
-          );
+          document.createElement('tr');
 
 
         tr.innerHTML =
@@ -1298,9 +1826,7 @@
           '</td>';
 
 
-        tbody.appendChild(
-          tr
-        );
+        tbody.appendChild(tr);
 
       }
     );
@@ -1308,13 +1834,11 @@
   }
 
 
-  /* ======================================================
+  /* =====================================================
      TRANSAKSI
-     ====================================================== */
+     ===================================================== */
 
-  function renderTransaksi(
-    data
-  ) {
+  function renderTransaksi(data) {
 
     const tbody =
       document.getElementById(
@@ -1322,18 +1846,14 @@
       );
 
 
-    tbody.innerHTML =
-      '';
+    tbody.innerHTML = '';
 
 
     const rows =
       data
         .slice()
         .reverse()
-        .slice(
-          0,
-          100
-        );
+        .slice(0, 100);
 
 
     if (
@@ -1352,9 +1872,7 @@
       function(item) {
 
         const tr =
-          document.createElement(
-            'tr'
-          );
+          document.createElement('tr');
 
 
         tr.innerHTML =
@@ -1367,29 +1885,25 @@
 
           '<td>' +
           escapeHTML(
-            item.nomor ||
-            '-'
+            item.nomor || '-'
           ) +
           '</td>' +
 
           '<td>' +
           escapeHTML(
-            item.customerName ||
-            '-'
+            item.customerName || '-'
           ) +
           '</td>' +
 
           '<td>' +
           escapeHTML(
-            item.kasir ||
-            '-'
+            item.kasir || '-'
           ) +
           '</td>' +
 
           '<td>' +
           escapeHTML(
-            item.status ||
-            '-'
+            item.status || '-'
           ) +
           '</td>' +
 
@@ -1400,9 +1914,7 @@
           '</td>';
 
 
-        tbody.appendChild(
-          tr
-        );
+        tbody.appendChild(tr);
 
       }
     );
@@ -1410,13 +1922,11 @@
   }
 
 
-  /* ======================================================
+  /* =====================================================
      FORMAT
-     ====================================================== */
+     ===================================================== */
 
-  function formatRupiah(
-    value
-  ) {
+  function formatRupiah(value) {
 
     return new Intl.NumberFormat(
       'id-ID',
@@ -1432,9 +1942,7 @@
   }
 
 
-  function formatShortRupiah(
-    value
-  ) {
+  function formatShortRupiah(value) {
 
     value =
       Number(value) || 0;
@@ -1445,8 +1953,10 @@
     ) {
 
       return 'Rp' +
-        (value / 1000000000)
-          .toFixed(1) +
+        (
+          value /
+          1000000000
+        ).toFixed(1) +
         'M';
 
     }
@@ -1457,8 +1967,10 @@
     ) {
 
       return 'Rp' +
-        (value / 1000000)
-          .toFixed(1) +
+        (
+          value /
+          1000000
+        ).toFixed(1) +
         'Jt';
 
     }
@@ -1469,8 +1981,10 @@
     ) {
 
       return 'Rp' +
-        (value / 1000)
-          .toFixed(0) +
+        (
+          value /
+          1000
+        ).toFixed(0) +
         'Rb';
 
     }
@@ -1482,9 +1996,7 @@
   }
 
 
-  function formatNumber(
-    value
-  ) {
+  function formatNumber(value) {
 
     return new Intl.NumberFormat(
       'id-ID'
@@ -1495,9 +2007,7 @@
   }
 
 
-  function formatTanggal(
-    value
-  ) {
+  function formatTanggal(value) {
 
     if (!value) {
       return '-';
@@ -1528,9 +2038,7 @@
   }
 
 
-  function formatTanggalSingkat(
-    value
-  ) {
+  function formatTanggalSingkat(value) {
 
     if (!value) {
       return '';
@@ -1559,9 +2067,7 @@
   }
 
 
-  function escapeHTML(
-    value
-  ) {
+  function escapeHTML(value) {
 
     return String(
       value === null ||
@@ -1593,13 +2099,11 @@
   }
 
 
-  /* ======================================================
+  /* =====================================================
      STATUS
-     ====================================================== */
+     ===================================================== */
 
-  function setLoading(
-    loading
-  ) {
+  function setLoading(loading) {
 
     const status =
       document.getElementById(
@@ -1617,9 +2121,7 @@
   }
 
 
-  function showError(
-    message
-  ) {
+  function showError(message) {
 
     const error =
       document.getElementById(
@@ -1653,3 +2155,4 @@
 
 </body>
 </html>
+```
