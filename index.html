@@ -20,7 +20,7 @@
     }
 
     /* =====================================================
-       HEADER UTAMA
+       HEADER
        ===================================================== */
 
     .header {
@@ -48,7 +48,7 @@
     }
 
     /* =====================================================
-       NAVIGASI 6 MENU
+       NAVIGASI
        ===================================================== */
 
     .menu-bar {
@@ -111,7 +111,7 @@
     }
 
     /* =====================================================
-       PAGE TITLE
+       PAGE HEADER
        ===================================================== */
 
     .page-header {
@@ -179,9 +179,17 @@
       color: white;
     }
 
+    .btn-primary:hover {
+      background: #a90000;
+    }
+
     .btn-secondary {
       background: #e5e7eb;
       color: #111827;
+    }
+
+    .btn-secondary:hover {
+      background: #d1d5db;
     }
 
     .status {
@@ -192,6 +200,11 @@
 
     .loading {
       color: #c40000;
+      font-weight: 700;
+    }
+
+    .success {
+      color: #15803d;
       font-weight: 700;
     }
 
@@ -274,6 +287,7 @@
     canvas {
       width: 100% !important;
       height: 100% !important;
+      display: block;
     }
 
     /* =====================================================
@@ -447,7 +461,7 @@
 <body>
 
 <!-- =======================================================
-     HEADER UTAMA
+     HEADER
      ======================================================= -->
 
 <header class="header">
@@ -468,7 +482,7 @@
 
 
 <!-- =======================================================
-     6 MENU UTAMA
+     6 MENU
      ======================================================= -->
 
 <nav class="menu-bar">
@@ -540,8 +554,9 @@
 
 <main class="container">
 
+
   <!-- =====================================================
-       MENU 1 — PENJUALAN
+       MENU 1
        ===================================================== -->
 
   <section id="halamanPenjualan">
@@ -553,13 +568,15 @@
       </div>
 
       <div class="page-description">
-        Data penjualan dari Accurate Online
+        Data penjualan tersimpan di Supabase
       </div>
 
     </div>
 
 
-    <!-- FILTER -->
+    <!-- ===================================================
+         FILTER
+         =================================================== -->
 
     <section class="toolbar">
 
@@ -622,7 +639,9 @@
     </section>
 
 
-    <!-- RINGKASAN -->
+    <!-- ===================================================
+         RINGKASAN
+         =================================================== -->
 
     <section class="cards">
 
@@ -660,7 +679,7 @@
         </div>
 
         <div class="card-small">
-          Invoice approved
+          Invoice
         </div>
 
       </div>
@@ -708,7 +727,9 @@
     </section>
 
 
-    <!-- GRAFIK -->
+    <!-- ===================================================
+         GRAFIK
+         =================================================== -->
 
     <section
       class="panel"
@@ -728,7 +749,9 @@
     </section>
 
 
-    <!-- PRODUK / BRAND -->
+    <!-- ===================================================
+         PRODUK / BRAND
+         =================================================== -->
 
     <section class="grid-2">
 
@@ -794,7 +817,9 @@
     </section>
 
 
-    <!-- TRANSAKSI -->
+    <!-- ===================================================
+         DETAIL TRANSAKSI
+         =================================================== -->
 
     <section class="panel">
 
@@ -812,9 +837,12 @@
               <th>Tanggal</th>
               <th>No. Invoice</th>
               <th>Customer</th>
-              <th>Kasir</th>
-              <th>Status</th>
-              <th class="number">Total</th>
+              <th>Produk</th>
+              <th>Merek</th>
+              <th>Qty</th>
+              <th class="number">Harga</th>
+              <th class="number">Diskon</th>
+              <th class="number">Omzet</th>
             </tr>
 
           </thead>
@@ -994,11 +1022,17 @@
 <script>
 
   /* =====================================================
-     CONFIG — API V21
+     SUPABASE CONFIGURATION
      ===================================================== */
 
-  const API_URL =
-    'https://script.google.com/macros/s/AKfycbz3dKH-1fh3c_cnnZm6xcJFW6zGNnWTnZA403FFc3FDorL9xz_VHim7RL8DTMqxxG5urA/exec';
+  const SUPABASE_URL =
+    'https://mykrvhedlqqdentexgzp.supabase.co';
+
+  const SUPABASE_REST_URL =
+    SUPABASE_URL + '/rest/v1';
+
+  const SUPABASE_KEY =
+    'sb_publishable_Ix0hrs2M7SZusYcJ45jyjw_1BMpWpOF';
 
 
   /* =====================================================
@@ -1007,9 +1041,11 @@
 
   let salesChart = null;
 
+  let semuaDataPenjualan = [];
+
 
   /* =====================================================
-     NAVIGASI MENU
+     NAVIGASI
      ===================================================== */
 
   function bukaMenu(nomor) {
@@ -1163,7 +1199,7 @@
 
 
   /* =====================================================
-     LOAD DASHBOARD V21
+     LOAD DATA SUPABASE
      ===================================================== */
 
   async function loadDashboard() {
@@ -1204,22 +1240,39 @@
     setLoading(true);
 
 
-    const url =
-      API_URL +
-      '?aksi=penjualan' +
-      '&mulai=' +
-      encodeURIComponent(mulai) +
-      '&akhir=' +
-      encodeURIComponent(akhir);
-
-
     try {
+
+      /*
+       * Supabase REST API
+       *
+       * Mengambil semua kolom dari tabel penjualan
+       * berdasarkan tanggal.
+       */
+
+      const url =
+        SUPABASE_REST_URL +
+        '/penjualan' +
+        '?select=*' +
+        '&tanggal=gte.' +
+        encodeURIComponent(mulai) +
+        '&tanggal=lte.' +
+        encodeURIComponent(akhir) +
+        '&order=tanggal.asc';
+
 
       const response =
         await fetch(
           url,
           {
             method: 'GET',
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization':
+                'Bearer ' +
+                SUPABASE_KEY,
+              'Content-Type':
+                'application/json'
+            },
             cache: 'no-store'
           }
         );
@@ -1227,9 +1280,14 @@
 
       if (!response.ok) {
 
+        const errorText =
+          await response.text();
+
         throw new Error(
-          'HTTP ' +
-          response.status
+          'Supabase HTTP ' +
+          response.status +
+          ': ' +
+          errorText
         );
 
       }
@@ -1239,23 +1297,30 @@
         await response.json();
 
 
-      if (!data.success) {
+      if (!Array.isArray(data)) {
 
         throw new Error(
-          data.message ||
-          'API mengembalikan error.'
+          'Format data Supabase tidak sesuai.'
         );
 
       }
 
 
-      renderDashboard(data);
+      semuaDataPenjualan =
+        data;
+
+
+      renderDashboard(
+        data
+      );
 
 
       document.getElementById(
         'status'
       ).innerHTML =
-        'Data berhasil dimuat • ' +
+        '<span class="success">✓ Data Supabase berhasil dimuat</span> • ' +
+        formatNumber(data.length) +
+        ' baris • ' +
         formatTanggal(mulai) +
         ' s/d ' +
         formatTanggal(akhir);
@@ -1267,10 +1332,17 @@
 
     catch (error) {
 
-      console.error(error);
+      console.error(
+        'SUPABASE ERROR:',
+        error
+      );
+
+      semuaDataPenjualan = [];
+
+      clearDashboard();
 
       showError(
-        'Gagal mengambil data penjualan: ' +
+        'Gagal mengambil data dari Supabase: ' +
         error.message
       );
 
@@ -1291,24 +1363,90 @@
 
   function renderDashboard(data) {
 
-    const ringkasan =
-      data.ringkasan ||
-      {};
+    data =
+      Array.isArray(data)
+        ? data
+        : [];
+
+
+    /* ===================================================
+       OMZET
+       =================================================== */
+
+    const omzet =
+      data.reduce(
+        function(total, item) {
+
+          return total +
+            Number(
+              item.omzet || 0
+            );
+
+        },
+        0
+      );
 
 
     document.getElementById(
       'omzet'
     ).textContent =
       formatRupiah(
-        ringkasan.omzet || 0
+        omzet
       );
+
+
+    /* ===================================================
+       TRANSAKSI
+       =================================================== */
+
+    const invoiceSet =
+      new Set();
+
+
+    data.forEach(
+      function(item) {
+
+        const invoice =
+          String(
+            item.nomor_invoice ||
+            ''
+          ).trim();
+
+        if (invoice) {
+
+          invoiceSet.add(
+            invoice
+          );
+
+        }
+
+      }
+    );
 
 
     document.getElementById(
       'transaksi'
     ).textContent =
       formatNumber(
-        ringkasan.transaksi || 0
+        invoiceSet.size
+      );
+
+
+    /* ===================================================
+       TOTAL QTY
+       =================================================== */
+
+    const totalQty =
+      data.reduce(
+        function(total, item) {
+
+          return total +
+            Number(
+              item.qty || 0
+            );
+
+        },
+        0
       );
 
 
@@ -1316,35 +1454,244 @@
       'qty'
     ).textContent =
       formatNumber(
-        ringkasan.qty || 0
+        totalQty
       );
+
+
+    /* ===================================================
+       JUMLAH PRODUK
+       =================================================== */
+
+    const produkSet =
+      new Set();
+
+
+    data.forEach(
+      function(item) {
+
+        const nama =
+          String(
+            item.nama_produk ||
+            ''
+          ).trim();
+
+        if (nama) {
+
+          produkSet.add(
+            nama
+          );
+
+        }
+
+      }
+    );
 
 
     document.getElementById(
       'produk'
     ).textContent =
       formatNumber(
-        ringkasan.produk || 0
+        produkSet.size
       );
 
 
-    renderChart(
-      data.harian || []
-    );
+    /* ===================================================
+       BAGIAN LAIN
+       =================================================== */
 
+    renderChart(
+      buatDataHarian(data)
+    );
 
     renderProduk(
-      data.produk || []
+      buatDataProduk(data)
     );
-
 
     renderBrand(
-      data.brand || []
+      buatDataBrand(data)
+    );
+
+    renderTransaksi(
+      data
+    );
+
+  }
+
+
+  /* =====================================================
+     DATA HARIAN
+     ===================================================== */
+
+  function buatDataHarian(data) {
+
+    const map =
+      {};
+
+
+    data.forEach(
+      function(item) {
+
+        const tanggal =
+          item.tanggal;
+
+        if (!tanggal) {
+          return;
+        }
+
+
+        if (!map[tanggal]) {
+
+          map[tanggal] = {
+            tanggal: tanggal,
+            omzet: 0
+          };
+
+        }
+
+
+        map[tanggal].omzet +=
+          Number(
+            item.omzet || 0
+          );
+
+      }
     );
 
 
-    renderTransaksi(
-      data.transaksi || []
+    return Object.values(
+      map
+    ).sort(
+      function(a, b) {
+
+        return String(
+          a.tanggal
+        ).localeCompare(
+          String(
+            b.tanggal
+          )
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     PRODUK TERLARIS
+     ===================================================== */
+
+  function buatDataProduk(data) {
+
+    const map =
+      {};
+
+
+    data.forEach(
+      function(item) {
+
+        const nama =
+          String(
+            item.nama_produk ||
+            'Tanpa Nama'
+          ).trim();
+
+
+        if (!map[nama]) {
+
+          map[nama] = {
+            nama: nama,
+            qty: 0,
+            omzet: 0,
+            satuan:
+              item.satuan || ''
+          };
+
+        }
+
+
+        map[nama].qty +=
+          Number(
+            item.qty || 0
+          );
+
+
+        map[nama].omzet +=
+          Number(
+            item.omzet || 0
+          );
+
+      }
+    );
+
+
+    return Object.values(
+      map
+    ).sort(
+      function(a, b) {
+
+        return b.qty - a.qty;
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     BRAND TERLARIS
+     ===================================================== */
+
+  function buatDataBrand(data) {
+
+    const map =
+      {};
+
+
+    data.forEach(
+      function(item) {
+
+        const brand =
+          String(
+            item.merk ||
+            'Tanpa Merek'
+          ).trim();
+
+
+        if (!map[brand]) {
+
+          map[brand] = {
+            brand: brand,
+            qty: 0,
+            omzet: 0
+          };
+
+        }
+
+
+        map[brand].qty +=
+          Number(
+            item.qty || 0
+          );
+
+
+        map[brand].omzet +=
+          Number(
+            item.omzet || 0
+          );
+
+      }
+    );
+
+
+    return Object.values(
+      map
+    ).sort(
+      function(a, b) {
+
+        return b.qty - a.qty;
+
+      }
     );
 
   }
@@ -1361,8 +1708,11 @@
         'salesChart'
       );
 
+
     const ctx =
-      canvas.getContext('2d');
+      canvas.getContext(
+        '2d'
+      );
 
 
     if (salesChart) {
@@ -1418,9 +1768,14 @@
       values
     ) {
 
-      this.ctx = ctx;
-      this.labels = labels;
-      this.values = values;
+      this.ctx =
+        ctx;
+
+      this.labels =
+        labels;
+
+      this.values =
+        values;
 
       this.draw();
 
@@ -1432,6 +1787,7 @@
       const canvas =
         this.ctx.canvas;
 
+
       const rect =
         canvas.getBoundingClientRect();
 
@@ -1442,15 +1798,22 @@
 
 
       canvas.width =
-        rect.width * dpr;
+        rect.width *
+        dpr;
+
 
       canvas.height =
-        rect.height * dpr;
+        rect.height *
+        dpr;
 
 
-      this.ctx.scale(
+      this.ctx.setTransform(
         dpr,
-        dpr
+        0,
+        0,
+        dpr,
+        0,
+        0
       );
 
 
@@ -1461,16 +1824,24 @@
         rect.height;
 
 
-      const paddingLeft = 65;
-      const paddingRight = 20;
-      const paddingTop = 20;
-      const paddingBottom = 45;
+      const paddingLeft =
+        65;
+
+      const paddingRight =
+        20;
+
+      const paddingTop =
+        20;
+
+      const paddingBottom =
+        45;
 
 
       const chartWidth =
         width -
         paddingLeft -
         paddingRight;
+
 
       const chartHeight =
         height -
@@ -1492,6 +1863,8 @@
         'right';
 
 
+      /* GRID */
+
       for (
         let i = 0;
         i <= 4;
@@ -1510,6 +1883,10 @@
 
         this.ctx.strokeStyle =
           '#e5e7eb';
+
+        this.ctx.lineWidth =
+          1;
+
 
         this.ctx.beginPath();
 
@@ -1536,14 +1913,19 @@
         this.ctx.fillStyle =
           '#6b7280';
 
+
         this.ctx.fillText(
-          formatShortRupiah(value),
+          formatShortRupiah(
+            value
+          ),
           paddingLeft - 8,
           y + 4
         );
 
       }
 
+
+      /* EMPTY */
 
       if (
         this.values.length === 0
@@ -1566,6 +1948,8 @@
       }
 
 
+      /* STEP */
+
       const step =
         chartWidth /
         Math.max(
@@ -1574,16 +1958,22 @@
         );
 
 
+      /* LINE */
+
       this.ctx.beginPath();
 
 
       this.values.forEach(
-        (value, index) => {
+        (
+          value,
+          index
+        ) => {
 
           const x =
             paddingLeft +
             index *
             step;
+
 
           const y =
             paddingTop +
@@ -1595,7 +1985,9 @@
             );
 
 
-          if (index === 0) {
+          if (
+            index === 0
+          ) {
 
             this.ctx.moveTo(
               x,
@@ -1624,13 +2016,19 @@
       this.ctx.stroke();
 
 
+      /* POINT */
+
       this.values.forEach(
-        (value, index) => {
+        (
+          value,
+          index
+        ) => {
 
           const x =
             paddingLeft +
             index *
             step;
+
 
           const y =
             paddingTop +
@@ -1643,6 +2041,7 @@
 
 
           this.ctx.beginPath();
+
 
           this.ctx.arc(
             x,
@@ -1669,6 +2068,7 @@
             this.ctx.textAlign =
               'center';
 
+
             this.ctx.fillText(
               this.labels[index],
               x,
@@ -1682,11 +2082,19 @@
 
     }
 
+
+    destroy() {
+
+      /* Chart digambar ulang,
+         tidak ada library eksternal. */
+
+    }
+
   }
 
 
   /* =====================================================
-     PRODUK
+     RENDER PRODUK
      ===================================================== */
 
   function renderProduk(data) {
@@ -1697,11 +2105,15 @@
       );
 
 
-    tbody.innerHTML = '';
+    tbody.innerHTML =
+      '';
 
 
     const rows =
-      data.slice(0, 10);
+      data.slice(
+        0,
+        10
+      );
 
 
     if (
@@ -1709,7 +2121,11 @@
     ) {
 
       tbody.innerHTML =
-        '<tr><td colspan="4" class="empty">Belum ada data</td></tr>';
+        '<tr>' +
+        '<td colspan="4" class="empty">' +
+        'Belum ada data' +
+        '</td>' +
+        '</tr>';
 
       return;
 
@@ -1717,42 +2133,55 @@
 
 
     rows.forEach(
-      function(item, index) {
+      function(
+        item,
+        index
+      ) {
 
         const tr =
-          document.createElement('tr');
+          document.createElement(
+            'tr'
+          );
 
 
         tr.innerHTML =
 
           '<td>' +
-          (index + 1) +
+          (
+            index + 1
+          ) +
           '</td>' +
 
           '<td>' +
           escapeHTML(
-            item.nama || '-'
+            item.nama ||
+            '-'
           ) +
           '</td>' +
 
           '<td class="number">' +
           formatNumber(
-            item.qty || 0
+            item.qty ||
+            0
           ) +
           ' ' +
           escapeHTML(
-            item.satuan || ''
+            item.satuan ||
+            ''
           ) +
           '</td>' +
 
           '<td class="number">' +
           formatRupiah(
-            item.omzet || 0
+            item.omzet ||
+            0
           ) +
           '</td>';
 
 
-        tbody.appendChild(tr);
+        tbody.appendChild(
+          tr
+        );
 
       }
     );
@@ -1761,7 +2190,7 @@
 
 
   /* =====================================================
-     BRAND
+     RENDER BRAND
      ===================================================== */
 
   function renderBrand(data) {
@@ -1772,11 +2201,15 @@
       );
 
 
-    tbody.innerHTML = '';
+    tbody.innerHTML =
+      '';
 
 
     const rows =
-      data.slice(0, 10);
+      data.slice(
+        0,
+        10
+      );
 
 
     if (
@@ -1784,7 +2217,11 @@
     ) {
 
       tbody.innerHTML =
-        '<tr><td colspan="4" class="empty">Belum ada data</td></tr>';
+        '<tr>' +
+        '<td colspan="4" class="empty">' +
+        'Belum ada data' +
+        '</td>' +
+        '</tr>';
 
       return;
 
@@ -1792,40 +2229,50 @@
 
 
     rows.forEach(
-      function(item, index) {
+      function(
+        item,
+        index
+      ) {
 
         const tr =
-          document.createElement('tr');
+          document.createElement(
+            'tr'
+          );
 
 
         tr.innerHTML =
 
           '<td>' +
-          (index + 1) +
+          (
+            index + 1
+          ) +
           '</td>' +
 
           '<td>' +
           escapeHTML(
             item.brand ||
-            item.nama ||
             'Tanpa Merek'
           ) +
           '</td>' +
 
           '<td class="number">' +
           formatNumber(
-            item.qty || 0
+            item.qty ||
+            0
           ) +
           '</td>' +
 
           '<td class="number">' +
           formatRupiah(
-            item.omzet || 0
+            item.omzet ||
+            0
           ) +
           '</td>';
 
 
-        tbody.appendChild(tr);
+        tbody.appendChild(
+          tr
+        );
 
       }
     );
@@ -1834,7 +2281,7 @@
 
 
   /* =====================================================
-     TRANSAKSI
+     RENDER TRANSAKSI
      ===================================================== */
 
   function renderTransaksi(data) {
@@ -1845,14 +2292,18 @@
       );
 
 
-    tbody.innerHTML = '';
+    tbody.innerHTML =
+      '';
 
 
     const rows =
       data
         .slice()
         .reverse()
-        .slice(0, 100);
+        .slice(
+          0,
+          100
+        );
 
 
     if (
@@ -1860,7 +2311,11 @@
     ) {
 
       tbody.innerHTML =
-        '<tr><td colspan="6" class="empty">Belum ada transaksi</td></tr>';
+        '<tr>' +
+        '<td colspan="9" class="empty">' +
+        'Belum ada transaksi' +
+        '</td>' +
+        '</tr>';
 
       return;
 
@@ -1871,7 +2326,9 @@
       function(item) {
 
         const tr =
-          document.createElement('tr');
+          document.createElement(
+            'tr'
+          );
 
 
         tr.innerHTML =
@@ -1884,36 +2341,69 @@
 
           '<td>' +
           escapeHTML(
-            item.nomor || '-'
+            item.nomor_invoice ||
+            '-'
           ) +
           '</td>' +
 
           '<td>' +
           escapeHTML(
-            item.customerName || '-'
+            item.nama_pelanggan ||
+            '-'
           ) +
           '</td>' +
 
           '<td>' +
           escapeHTML(
-            item.kasir || '-'
+            item.nama_produk ||
+            '-'
           ) +
           '</td>' +
 
           '<td>' +
           escapeHTML(
-            item.status || '-'
+            item.merk ||
+            '-'
+          ) +
+          '</td>' +
+
+          '<td>' +
+          formatNumber(
+            item.qty ||
+            0
+          ) +
+          ' ' +
+          escapeHTML(
+            item.satuan ||
+            ''
           ) +
           '</td>' +
 
           '<td class="number">' +
           formatRupiah(
-            item.total || 0
+            item.harga_satuan ||
+            0
+          ) +
+          '</td>' +
+
+          '<td class="number">' +
+          formatRupiah(
+            item.diskon ||
+            0
+          ) +
+          '</td>' +
+
+          '<td class="number">' +
+          formatRupiah(
+            item.omzet ||
+            0
           ) +
           '</td>';
 
 
-        tbody.appendChild(tr);
+        tbody.appendChild(
+          tr
+        );
 
       }
     );
@@ -1922,7 +2412,56 @@
 
 
   /* =====================================================
-     FORMAT
+     CLEAR DASHBOARD
+     ===================================================== */
+
+  function clearDashboard() {
+
+    document.getElementById(
+      'omzet'
+    ).textContent =
+      'Rp0';
+
+
+    document.getElementById(
+      'transaksi'
+    ).textContent =
+      '0';
+
+
+    document.getElementById(
+      'qty'
+    ).textContent =
+      '0';
+
+
+    document.getElementById(
+      'produk'
+    ).textContent =
+      '0';
+
+
+    renderProduk(
+      []
+    );
+
+    renderBrand(
+      []
+    );
+
+    renderTransaksi(
+      []
+    );
+
+    renderChart(
+      []
+    );
+
+  }
+
+
+  /* =====================================================
+     FORMAT RUPIAH
      ===================================================== */
 
   function formatRupiah(value) {
@@ -1940,6 +2479,10 @@
 
   }
 
+
+  /* =====================================================
+     FORMAT SHORT RUPIAH
+     ===================================================== */
 
   function formatShortRupiah(value) {
 
@@ -1995,6 +2538,10 @@
   }
 
 
+  /* =====================================================
+     FORMAT NUMBER
+     ===================================================== */
+
   function formatNumber(value) {
 
     return new Intl.NumberFormat(
@@ -2006,6 +2553,10 @@
   }
 
 
+  /* =====================================================
+     FORMAT TANGGAL
+     ===================================================== */
+
   function formatTanggal(value) {
 
     if (!value) {
@@ -2014,7 +2565,9 @@
 
 
     const parts =
-      String(value).split('-');
+      String(
+        value
+      ).split('-');
 
 
     if (
@@ -2037,6 +2590,10 @@
   }
 
 
+  /* =====================================================
+     FORMAT TANGGAL SINGKAT
+     ===================================================== */
+
   function formatTanggalSingkat(value) {
 
     if (!value) {
@@ -2045,7 +2602,9 @@
 
 
     const parts =
-      String(value).split('-');
+      String(
+        value
+      ).split('-');
 
 
     if (
@@ -2066,6 +2625,10 @@
   }
 
 
+  /* =====================================================
+     ESCAPE HTML
+     ===================================================== */
+
   function escapeHTML(value) {
 
     return String(
@@ -2074,22 +2637,27 @@
         ? ''
         : value
     )
+
       .replace(
         /&/g,
         '&amp;'
       )
+
       .replace(
         /</g,
         '&lt;'
       )
+
       .replace(
         />/g,
         '&gt;'
       )
+
       .replace(
         /"/g,
         '&quot;'
       )
+
       .replace(
         /'/g,
         '&#039;'
@@ -2099,10 +2667,12 @@
 
 
   /* =====================================================
-     STATUS
+     LOADING
      ===================================================== */
 
-  function setLoading(loading) {
+  function setLoading(
+    loading
+  ) {
 
     const status =
       document.getElementById(
@@ -2110,17 +2680,27 @@
       );
 
 
-    if (loading) {
+    if (
+      loading
+    ) {
 
       status.innerHTML =
-        '<span class="loading">⏳ Mengambil data penjualan dari Accurate...</span>';
+        '<span class="loading">' +
+        '⏳ Mengambil data penjualan dari Supabase...' +
+        '</span>';
 
     }
 
   }
 
 
-  function showError(message) {
+  /* =====================================================
+     ERROR
+     ===================================================== */
+
+  function showError(
+    message
+  ) {
 
     const error =
       document.getElementById(
@@ -2130,6 +2710,7 @@
 
     error.textContent =
       message;
+
 
     error.style.display =
       'block';
@@ -2149,6 +2730,30 @@
       'none';
 
   }
+
+
+  /* =====================================================
+     RESIZE CHART
+     ===================================================== */
+
+  window.addEventListener(
+    'resize',
+    function() {
+
+      if (
+        semuaDataPenjualan.length
+      ) {
+
+        renderChart(
+          buatDataHarian(
+            semuaDataPenjualan
+          )
+        );
+
+      }
+
+    }
+  );
 
 </script>
 
